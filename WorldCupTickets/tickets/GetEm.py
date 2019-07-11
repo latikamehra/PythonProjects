@@ -85,7 +85,7 @@ while 1>0 :
             addTicketsToBasket()
             counter = counter+1      
         except :
-            print "Tried getting the tickets following number of times : "+counter
+            print "Tried getting the tickets following number of times : "+str(counter)
             break
     
     
