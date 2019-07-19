@@ -21,9 +21,9 @@ dt = [("1","Jonny","47"),
       ("4","Ed O'Brien","50"), 
       ("5","Phil","51") ]
 
+
+
 '''
-
-
 schema = [("id", "serial"),
           ("name", "varchar(50)"), 
           ("age", "integer")]
@@ -34,6 +34,7 @@ dt = [("Jonny","47"),
       ("Ed O'Brien","50"), 
       ("Phil","51") ]
 
+
     
     
     
@@ -42,16 +43,20 @@ pg = Postgres.postgres(tbl,schema)
 
 pg.connect()
 
+pg.dropTable()
+
 pg.createTable()
 
 pg.cleanEntireTable()
 
 pg.insertData(dt)
 
-#pg.deleteSpecificRows("WHERE name in ('"+dt[2][1]+"')")
+pg.deleteSpecificRows("WHERE name in ('"+dt[2][0]+"')")
 pg.updateData("SET age=46", "WHERE id=1")
 
-resDictLst = pg.readData("*", "WHERE name='Jonny'")
+resDictLst = pg.readData("*", "WHERE name='Phil'")
+
+pg.insertData([("Colin", "49")])
 
 print (resDictLst)
 

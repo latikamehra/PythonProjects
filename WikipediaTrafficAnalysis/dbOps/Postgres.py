@@ -20,7 +20,7 @@ class postgres():
         
         self.colsTpl = None
         self.insertableColTpl = None
-        self.setColTpl() # Construct the tuple of columns
+        self.setColTpl() # Construct the tuple of columns & tuple of non-auto-generated columns
         
         self.colListStr = None
         self.insertableColLstStr = None # List of Columns that are NOT auto-generated
@@ -224,7 +224,7 @@ class postgres():
             
             dtDictLst.append(dictBit)
             
-        print (dtDictLst)
+        #print (dtDictLst)
             
         return dtDictLst  
     
