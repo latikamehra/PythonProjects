@@ -1,13 +1,15 @@
 '''
-Created on Jul 10, 2019
+Created on Jul 16, 2019
 
 @author: latikamehra
 '''
 
-import requests
-import json
-import datetime
 from datetime import date
+import datetime
+import json
+
+import requests
+
 
 class pageview() :
     
@@ -86,3 +88,4 @@ class pageview() :
         jlist = parsed["items"]
         
         return jlist
+    

@@ -76,7 +76,7 @@ counter = 0
 while 1>0 :
     try :
         counter = counter+1
-        print "Attempt #"+counter
+        print("Attempt #"+counter)
         addTicketsToBasket()       
     except :
         try :
@@ -85,7 +85,7 @@ while 1>0 :
             addTicketsToBasket()
             counter = counter+1      
         except :
-            print "Tried getting the tickets following number of times : "+str(counter)
+            print("Tried getting the tickets following number of times : "+str(counter))
             break
     
     
