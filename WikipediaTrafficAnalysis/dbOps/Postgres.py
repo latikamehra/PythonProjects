@@ -19,9 +19,11 @@ class postgres():
         self.schemaTupleList = schemaTupleList
         
         self.colsTpl = None
+        self.insertableColTpl = None
         self.setColTpl() # Construct the tuple of columns
         
         self.colListStr = None
+        self.insertableColLstStr = None # List of Columns that are NOT auto-generated
         self.schemaListString = None
         self.execmanyStr = None
         self.setSchemaStrings()  # Construct the string constructed as ordered column names & column types
@@ -74,6 +76,21 @@ class postgres():
             print (e)
         
         
+    def deleteSpecificRows(self, whereClause):
+        sqlBase = "DELETE FROM {0} {1}"
+        
+        sql = sqlBase.format(self.tableName, whereClause)
+        
+        try:
+            print ("Executing the following DELETE statement :\n\t"+sql)
+            self.cur.execute(sql)
+            self.conn.commit()
+            print ("Statement successfully executed\n\n")
+        except Exception as e:
+            print ("Failed to delete the table "+self.tableName)
+            print (e)
+            
+        
     def dropTable(self):
         sqlBase = "DROP TABLE IF EXISTS {0}"
         
@@ -89,22 +106,23 @@ class postgres():
             print (e)
             
             
-    def readData(self, cols, whereClause):
+    def readData(self, cols, *whereClause):
         sqlBase = "SELECT {0} FROM {1} "
         
-        if cols.strip() == "*" :
-            colsTpl = self.colsTpl
-        else:
+        if type(cols) is tuple : # If the list of columns is presented as a tuple then stick to it 
             colsTpl = cols
+        else:  # Assume the columns have been provided as a string of comma separated string 
+            if cols.strip() == "*" : # If an asterisk is given all the columns in the table have to be fetched data for
+                colsTpl = self.colsTpl
+            else :
+                colsTpl = cols.split(",")
             
         colListStr = ",".join(colsTpl)
         
         sql = sqlBase.format(colListStr,self.tableName)
         
-        if whereClause != None:
-            sql += whereClause           
-        
-        dataDictLst = []
+        for w in whereClause:
+            sql += " "+w+" "  
         
         try :
             print ("Executing the following READ statement :\n\t"+sql)
@@ -112,15 +130,20 @@ class postgres():
             res = self.cur.fetchall()   
             print ("Statement successfully executed\n\n")
         except Exception as e:
-            print ("Failed to write data to the database")
+            print ("Failed to read data from the database")
             print (e)
             
-            
+        resDictLst = self.constrResDicLst(colsTpl, res)    
+        
+        return resDictLst
     
-    def writeData(self, dataTplLst):
+    
+
+            
+    def insertData(self, dataTplLst):
         sqlBase = "INSERT INTO {0} ({1}) VALUES ({2})"
         
-        sql = sqlBase.format(self.tableName, self.colListStr, self.execmanyStr)
+        sql = sqlBase.format(self.tableName, self.insertableColLstStr, self.execmanyStr)
         
         dataDictLst = self.constructDataDictList(dataTplLst)
         
@@ -134,21 +157,40 @@ class postgres():
             print (e)
             
             
+    def updateData(self, setStmnt, whereStmnt):
+        sqlBase = "UPDATE {0} {1} {2}"
+        
+        sql = sqlBase.format(self.tableName, setStmnt, whereStmnt)
+        
+        try :
+            print ("Executing the following INSERT statement :\n\t"+sql)
+            self.cur.execute(sql)  
+            self.conn.commit()    
+            print ("Statement successfully executed\n\n")
+        except Exception as e:
+            print ("Failed to update data to the database")
+            print (e)
+                       
             
     def setColTpl(self):
         colLst = []
+        insColLst = []
 
         for sch in self.schemaTupleList :
             colLst.append(sch[0])
+            if sch[1].strip().lower() != "serial":
+                insColLst.append(sch[0])
             
         self.colsTpl = tuple(colLst)
+        self.insertableColTpl = tuple(insColLst)
         
             
             
     def setSchemaStrings(self):
         schemaStrLst = []  # Start a list that will contain strings of column names & column types that will eventually be joined with a comma
         colStrLst = []   # Start a list that will contain strings of only column names that will eventually be joined with a comma
-        execmanyStrLst = [] # start a list that will contain strings of column names preceded by %( and followed by )s
+        execmanyStrLst = [] # Start a list that will contain strings of column names preceded by %( and followed by )s
+        insertableColStrLst = [] # Start a list that will contain strings of only those columns which are NOT auto-generated that will eventually be joined with a comma
         
         for col_tpl in self.schemaTupleList:  # Read the schema list that contains tuples constructed as (column_name , columns_type)
             
@@ -157,11 +199,16 @@ class postgres():
             
             colStrLst.append(col_tpl[0])  # Add the string containing only the present column name to a list
             
-            execmnBit = "%("+col_tpl[0]+")s" # Add the required string bits to the column name to prepare for the executeMany statement
-            execmanyStrLst.append(execmnBit)
+            if col_tpl[1].strip().lower() != "serial" : # If the column type is NOT serial then that column has to be added to the list of columns that will be required for Insert operation
+                insertableColStrLst.append(col_tpl[0])
+                execmnBit = "%("+col_tpl[0]+")s" # Add the required string bits to the column name to prepare for the executeMany statement
+                execmanyStrLst.append(execmnBit)
+            
+            
             
         self.schemaListString = " , ".join(schemaStrLst)
         self.colListStr = " , ".join(colStrLst)
+        self.insertableColLstStr = " , ".join(insertableColStrLst)
         self.execmanyStr = " , ".join(execmanyStrLst)
         
         
@@ -172,12 +219,27 @@ class postgres():
         for d in dataTplLst:
             dictBit = {}
             
-            for i in range(len(self.colsTpl)):
-                dictBit[self.colsTpl[i]] = d[i] 
+            for i in range(len(self.insertableColTpl)):
+                dictBit[self.insertableColTpl[i]] = d[i] 
             
             dtDictLst.append(dictBit)
             
+        print (dtDictLst)
+            
         return dtDictLst  
+    
+    
+    def constrResDicLst(self, colsTpl, res):
+        resDictLst = []
+        
+        for row in res :
+            dictBit = {}
+            for i in range(len(row)):
+                dictBit[colsTpl[i].strip()] = row[i]
+            
+            resDictLst.append(dictBit)
+            
+        return resDictLst
         
  
             
