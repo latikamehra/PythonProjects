@@ -5,31 +5,37 @@ Created on Jul 16, 2019
 '''
 
 import psycopg2
+import config.Postgres
 
 
 class postgres():
     
-    def __init__(self, tableName, schemaTupleList):
-        self.hostname = 'localhost'
-        self.username = 'latikamehra'
-        self.password = ''
-        self.database = 'latikamehra' 
+    def __init__(self, tableName=None, schemaTupleList=None, verbose=False):
+        pg = config.Postgres
+        self.hostname = pg.hostname
+        self.username = pg.username
+        self.password = pg.password
+        self.database = pg.database
         
         self.tableName = tableName
         self.schemaTupleList = schemaTupleList
         
         self.colsTpl = None
         self.insertableColTpl = None
-        self.setColTpl() # Construct the tuple of columns & tuple of non-auto-generated columns
+        if schemaTupleList is not None :
+            self.setColTpl() # Construct the tuple of columns & tuple of non-auto-generated columns
         
         self.colListStr = None
         self.insertableColLstStr = None # List of Columns that are NOT auto-generated
         self.schemaListString = None
         self.execmanyStr = None
-        self.setSchemaStrings()  # Construct the string constructed as ordered column names & column types
+        if schemaTupleList is not None :
+            self.setSchemaStrings()  # Construct the string constructed as ordered column names & column types
         
         self.conn = None
         self.cur = None
+        
+        self.verbose = verbose
     
     def connect(self):
         try :
@@ -44,17 +50,27 @@ class postgres():
         self.cur.close()
         self.conn.commit()
         self.conn.close()
+        
+    def psql(self, tp, sql):
+        if self.verbose == True :
+            stmnt = "{0}Successfully executed the following "+tp+" statement :{1}"+sql+"{2}"
+            stmnt = stmnt.format("\n"+"-"*100+"\n", "\n\t","\n"+"-"*100+"\n")
+            print (stmnt)
             
     def createTable(self):
+        optionalSchema = self.tableName.split(".")
+        if len(optionalSchema) > 1 :
+            schemaName = optionalSchema[0]
+            self.cur.execute("CREATE SCHEMA IF NOT EXISTS "+schemaName)
+        
         sqlBase = "CREATE TABLE IF NOT EXISTS {0} ({1})"
         
         sql = sqlBase.format(self.tableName, self.schemaListString)
         
         try:
-            print ("Executing the following create statement :\n\t"+sql)
             self.cur.execute(sql)
             self.conn.commit()
-            print ("Statement successfully executed\n\n")
+            self.psql("CREATE", sql)
         except Exception as e:
             print ("Failed to create the table "+self.tableName)
             print (e)
@@ -67,10 +83,9 @@ class postgres():
         sql = sqlBase.format(self.tableName)
         
         try:
-            print ("Executing the following DELETE statement :\n\t"+sql)
             self.cur.execute(sql)
             self.conn.commit()
-            print ("Statement successfully executed\n\n")
+            self.psql("DELETE", sql)
         except Exception as e:
             print ("Failed to delete the table "+self.tableName)
             print (e)
@@ -82,10 +97,9 @@ class postgres():
         sql = sqlBase.format(self.tableName, whereClause)
         
         try:
-            print ("Executing the following DELETE statement :\n\t"+sql)
             self.cur.execute(sql)
             self.conn.commit()
-            print ("Statement successfully executed\n\n")
+            self.psql("DELETE", sql)
         except Exception as e:
             print ("Failed to delete the table "+self.tableName)
             print (e)
@@ -97,15 +111,26 @@ class postgres():
         sql = sqlBase.format(self.tableName)
         
         try:
-            print ("Executing the following DROP statement :\n\t"+sql)
             self.cur.execute(sql)
             self.conn.commit()
-            print ("Statement successfully executed\n\n")
+            self.psql("DROP", sql)
         except Exception as e:
             print ("Failed to drop the table "+self.tableName)
             print (e)
             
+    def executeReadStatement(self, sql):
+        
+        try :
+            self.cur.execute(sql)  
+            res = self.cur.fetchall()   
+            self.psql("READ", sql)
+        except Exception as e:
+            print ("Failed to read data from the database")
+            print (e)
             
+        return res
+        
+           
     def readData(self, cols, *whereClause):
         sqlBase = "SELECT {0} FROM {1} "
         
@@ -125,10 +150,9 @@ class postgres():
             sql += " "+w+" "  
         
         try :
-            print ("Executing the following READ statement :\n\t"+sql)
             self.cur.execute(sql)  
             res = self.cur.fetchall()   
-            print ("Statement successfully executed\n\n")
+            self.psql("READ", sql)
         except Exception as e:
             print ("Failed to read data from the database")
             print (e)
@@ -148,10 +172,9 @@ class postgres():
         dataDictLst = self.constructDataDictList(dataTplLst)
         
         try :
-            print ("Executing the following INSERT statement :\n\t"+sql)
             self.cur.executemany(sql, dataDictLst)  
             self.conn.commit()    
-            print ("Statement successfully executed\n\n")
+            self.psql("INSERT", sql)
         except Exception as e:
             print ("Failed to write data to the database")
             print (e)
@@ -163,10 +186,9 @@ class postgres():
         sql = sqlBase.format(self.tableName, setStmnt, whereStmnt)
         
         try :
-            print ("Executing the following INSERT statement :\n\t"+sql)
             self.cur.execute(sql)  
             self.conn.commit()    
-            print ("Statement successfully executed\n\n")
+            self.psql("UPDATE", sql)
         except Exception as e:
             print ("Failed to update data to the database")
             print (e)

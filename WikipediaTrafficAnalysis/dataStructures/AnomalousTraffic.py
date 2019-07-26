@@ -8,7 +8,7 @@ class result():
     
     def __init__(self, wikiPage, anomalousActvityDict, totalNumberOfDays, totalViewCountsOfAllTime ):
         
-        self.wikiPage = wikiPage
+        self.wikiPage = wikiPage.title()
         self.anomalousActvityDict = anomalousActvityDict
         self.totalNumberOfDays = totalNumberOfDays
         self.totalViewCountsOfAllTime = totalViewCountsOfAllTime
@@ -18,7 +18,7 @@ class result():
         
         allTimeViewAvg = self.totalViewCountsOfAllTime/self.totalNumberOfDays # Calculate daily average from all the data
         
-        print(("\t\t"+self.wikiPage.title()+":\n"+"#"*50+"\n\n"))
+        print(("\t\t"+self.wikiPage+":\n"+"#"*50+"\n\n"))
         
         print(("Total View Counts = "+ str(int(self.totalViewCountsOfAllTime)))) 
         print(("Average Daily View Count = "+ str(int(allTimeViewAvg))))
