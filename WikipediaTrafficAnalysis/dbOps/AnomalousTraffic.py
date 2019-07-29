@@ -4,14 +4,18 @@ Created on Jul 20, 2019
 @author: latikamehra
 '''
 
+from datetime import date
 import tableSchemas.AnomalousTraffic
 from dbOps import Postgres
 from tableSchemas import PageViewTotals
+from time import strftime
 
 
 class dbOps():
     
     def __init__(self, *verbose):
+        
+        self.curDate = date.today().strftime( "%Y-%m-%d")
         
         self.pg_pvt = Postgres.postgres(PageViewTotals.tableName, PageViewTotals.schema, *verbose)
         self.pg_at = Postgres.postgres(tableSchemas.AnomalousTraffic.tableName, tableSchemas.AnomalousTraffic.schema, *verbose)
@@ -76,7 +80,7 @@ class dbOps():
         return (at_res)
         
     def fetchPageID(self, pageName):
-        id_check = self.pg_pvt.readData(self.pvt_id_col, "WHERE "+self.pvt_page_name_col+"='"+pageName.title()+"'")
+        id_check = self.pg_pvt.readData(self.pvt_id_col, "WHERE "+self.pvt_page_name_col+"='"+pageName.replace("'","''")+"'")
         
         if len(id_check) > 0 :
             pg_id = str(id_check[0][self.pvt_id_col]) # If data for the pageName already exists then return the ID of the table record
@@ -93,7 +97,7 @@ class dbOps():
             whr_stmnt = "WHERE "+self.pvt_id_col+"="+pg_id
             self.pg_pvt.updateData(set_stmnt , whr_stmnt) # Wiki page data already exists, therefore update the record with new totals
         else :
-            self.pg_pvt.insertData([(anomalousTrafficDS.wikiPage, anomalousTrafficDS.totalViewCountsOfAllTime, (anomalousTrafficDS.totalViewCountsOfAllTime/anomalousTrafficDS.totalNumberOfDays))]) # Wiki page data does NOT exist, therefore insert a new record
+            self.pg_pvt.insertData([(anomalousTrafficDS.wikiPage, anomalousTrafficDS.totalViewCountsOfAllTime, (anomalousTrafficDS.totalViewCountsOfAllTime/anomalousTrafficDS.totalNumberOfDays), self.curDate)]) # Wiki page data does NOT exist, therefore insert a new record
             
             
             

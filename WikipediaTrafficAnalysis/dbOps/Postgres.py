@@ -6,11 +6,13 @@ Created on Jul 16, 2019
 
 import psycopg2
 import config.Postgres
+import logging
 
 
 class postgres():
     
     def __init__(self, tableName=None, schemaTupleList=None, verbose=False):
+        self.log = logging.getLogger(__name__)
         pg = config.Postgres
         self.hostname = pg.hostname
         self.username = pg.username
@@ -68,6 +70,7 @@ class postgres():
         sql = sqlBase.format(self.tableName, self.schemaListString)
         
         try:
+            self.log.info(sql)
             self.cur.execute(sql)
             self.conn.commit()
             self.psql("CREATE", sql)
@@ -83,6 +86,7 @@ class postgres():
         sql = sqlBase.format(self.tableName)
         
         try:
+            self.log.info(sql)
             self.cur.execute(sql)
             self.conn.commit()
             self.psql("DELETE", sql)
@@ -97,6 +101,7 @@ class postgres():
         sql = sqlBase.format(self.tableName, whereClause)
         
         try:
+            self.log.info(sql)
             self.cur.execute(sql)
             self.conn.commit()
             self.psql("DELETE", sql)
@@ -111,6 +116,7 @@ class postgres():
         sql = sqlBase.format(self.tableName)
         
         try:
+            self.log.info(sql)
             self.cur.execute(sql)
             self.conn.commit()
             self.psql("DROP", sql)
@@ -121,6 +127,7 @@ class postgres():
     def executeReadStatement(self, sql):
         
         try :
+            self.log.info(sql)
             self.cur.execute(sql)  
             res = self.cur.fetchall()   
             self.psql("READ", sql)
@@ -150,6 +157,7 @@ class postgres():
             sql += " "+w+" "  
         
         try :
+            self.log.info(sql)
             self.cur.execute(sql)  
             res = self.cur.fetchall()   
             self.psql("READ", sql)
@@ -172,6 +180,8 @@ class postgres():
         dataDictLst = self.constructDataDictList(dataTplLst)
         
         try :
+            self.log.info(sql)
+            self.log.info(dataDictLst)
             self.cur.executemany(sql, dataDictLst)  
             self.conn.commit()    
             self.psql("INSERT", sql)
@@ -186,6 +196,7 @@ class postgres():
         sql = sqlBase.format(self.tableName, setStmnt, whereStmnt)
         
         try :
+            self.log.info(sql)
             self.cur.execute(sql)  
             self.conn.commit()    
             self.psql("UPDATE", sql)

@@ -37,7 +37,7 @@ order by a.date
 sql = """select 
 a."""+a_date+""",
 array_agg(p."""+p_page_name+""") as page_names,
-array_agg(a."""+a_view_count+"""/p."""+p_avg_vc+""") as spike_factor
+array_agg(TRUNC((a."""+a_view_count+"""::decimal/p."""+p_avg_vc+"""),2)) as spike_factor
 from """+a_table+""" a 
 join """+p_table+""" p 
 on a."""+a_id+"""=p."""+p_id+"""

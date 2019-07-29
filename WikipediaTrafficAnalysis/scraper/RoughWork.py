@@ -5,61 +5,11 @@ Created on Jul 16, 2019
 '''
 
     
-from dbOps import Postgres
-
-
-tbl = "RadAge"
-
-'''
-schema = [("id", "integer"),
-          ("name", "varchar(50)"), 
-          ("age", "integer")]
-
-dt = [("1","Jonny","47"), 
-      ("2","Thom","49"), 
-      ("3","Colin","49"), 
-      ("4","Ed O'Brien","50"), 
-      ("5","Phil","51") ]
+import logging
 
 
 
-'''
-schema = [("id", "serial"),
-          ("name", "varchar(50)"), 
-          ("age", "integer")]
+log = logging
+log.basicConfig(filename='./XYZ.log', filemode='w',level=logging.INFO, format='\n %(message)s \n')
 
-dt = [("Jonny","47"), 
-      ("Thom","49"), 
-      ("Colin","49"), 
-      ("Ed O'Brien","50"), 
-      ("Phil","51") ]
-
-
-    
-    
-    
- 
-pg = Postgres.postgres(tbl,schema)
-
-pg.connect()
-
-pg.dropTable()
-
-pg.createTable()
-
-pg.cleanEntireTable()
-
-pg.insertData(dt)
-
-pg.deleteSpecificRows("WHERE name in ('"+dt[2][0]+"')")
-pg.updateData("SET age=46", "WHERE id=1")
-
-resDictLst = pg.readData("*", "WHERE name='Phil'")
-
-pg.insertData([("Colin", "49")])
-
-print (resDictLst)
-
-#pg.cleanEntireTable()
-
-#pg.dropTable()
+log.debug("Testing 123")

@@ -8,7 +8,7 @@ class result():
     
     def __init__(self, wikiPage, anomalousActvityDict, totalNumberOfDays, totalViewCountsOfAllTime ):
         
-        self.wikiPage = wikiPage.title()
+        self.wikiPage = wikiPage
         self.anomalousActvityDict = anomalousActvityDict
         self.totalNumberOfDays = totalNumberOfDays
         self.totalViewCountsOfAllTime = totalViewCountsOfAllTime

@@ -7,6 +7,7 @@ Created on Jul 16, 2019
 from datetime import date
 import datetime
 import json
+from formatters import NormalizeKeyword
 
 import requests
 
@@ -65,27 +66,36 @@ class pageview() :
     def getTotalViewCount(self, keywrd):
         totalViews = 0
         
-        jaslist = self.getWikiResponse(keywrd)
-        
-        for entry in jaslist :
-            view = entry["views"]
-            totalViews += view
-                
-        
-        return totalViews
+        try :
+            jaslist = self.getWikiResponse(keywrd)
+            for entry in jaslist :
+                view = entry["views"]
+                totalViews += view
+                return totalViews
+        except:
+            raise
     
     
     def getWikiResponse(self, keywrd):
-        keywrd = keywrd.title().replace(" ", "_")
+        keywrd = NormalizeKeyword.title(keywrd).replace(" ", "_")
         
         self.wikiurl = self.base_url.format(keywrd,self.startDt,self.endDt)
         
-        #print self.wikiurl
+        #print (self.wikiurl)
         
         response = requests.get(self.wikiurl)
-        cont = response.content
-        parsed = json.loads(cont)
-        jlist = parsed["items"]
+        jsonCont = response.content
+        dictCont = json.loads(jsonCont)
+        if "items" in dictCont.keys():
+            resDictLst = dictCont["items"]
+            return resDictLst
+        else:
+            err = "<Wikipedia Error> Wikipedia Analytics call for '{}' failed with the following error :\n\t\"{}\""
+            raise Exception(err.format(keywrd,dictCont["detail"]))
         
-        return jlist
+            
+
+            
+       
+
     

@@ -6,6 +6,7 @@ Created on Jul 16, 2019
 
 from dataStructures import AnomalousTraffic
 from . import GetTrafficData
+from formatters import NormalizeKeyword
 
 
 class AnomalousDays():
@@ -16,6 +17,8 @@ class AnomalousDays():
         
 
     def get(self, wikiPageFor):
+        
+        wikiPageFor = NormalizeKeyword.title(wikiPageFor)
            
         pgvw = GetTrafficData.pageview() # Create an object to get Wiki details
         
@@ -35,7 +38,7 @@ class AnomalousDays():
             dt = lstOfTpls[i][0]
             vc = float(lstOfTpls[i][1])
             
-            totalViewCountsOfAllTime += vc # Add cureent view count to total
+            totalViewCountsOfAllTime += vc # Add current view count to total
             
             #print vc
             
