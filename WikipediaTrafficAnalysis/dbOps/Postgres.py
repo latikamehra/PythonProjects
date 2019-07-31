@@ -70,7 +70,7 @@ class postgres():
         sql = sqlBase.format(self.tableName, self.schemaListString)
         
         try:
-            self.log.info(sql)
+            self.log.debug(sql)
             self.cur.execute(sql)
             self.conn.commit()
             self.psql("CREATE", sql)
@@ -86,7 +86,7 @@ class postgres():
         sql = sqlBase.format(self.tableName)
         
         try:
-            self.log.info(sql)
+            self.log.debug(sql)
             self.cur.execute(sql)
             self.conn.commit()
             self.psql("DELETE", sql)
@@ -101,7 +101,7 @@ class postgres():
         sql = sqlBase.format(self.tableName, whereClause)
         
         try:
-            self.log.info(sql)
+            self.log.debug(sql)
             self.cur.execute(sql)
             self.conn.commit()
             self.psql("DELETE", sql)
@@ -116,7 +116,7 @@ class postgres():
         sql = sqlBase.format(self.tableName)
         
         try:
-            self.log.info(sql)
+            self.log.debug(sql)
             self.cur.execute(sql)
             self.conn.commit()
             self.psql("DROP", sql)
@@ -127,7 +127,7 @@ class postgres():
     def executeReadStatement(self, sql):
         
         try :
-            self.log.info(sql)
+            self.log.debug(sql)
             self.cur.execute(sql)  
             res = self.cur.fetchall()   
             self.psql("READ", sql)
@@ -157,7 +157,7 @@ class postgres():
             sql += " "+w+" "  
         
         try :
-            self.log.info(sql)
+            self.log.debug(sql)
             self.cur.execute(sql)  
             res = self.cur.fetchall()   
             self.psql("READ", sql)
@@ -180,8 +180,8 @@ class postgres():
         dataDictLst = self.constructDataDictList(dataTplLst)
         
         try :
-            self.log.info(sql)
-            self.log.info(dataDictLst)
+            self.log.debug(sql)
+            self.log.debug(dataDictLst)
             self.cur.executemany(sql, dataDictLst)  
             self.conn.commit()    
             self.psql("INSERT", sql)
@@ -196,7 +196,7 @@ class postgres():
         sql = sqlBase.format(self.tableName, setStmnt, whereStmnt)
         
         try :
-            self.log.info(sql)
+            self.log.debug(sql)
             self.cur.execute(sql)  
             self.conn.commit()    
             self.psql("UPDATE", sql)

@@ -19,4 +19,4 @@ pages2 =  ["the beatles",
 
 pages3 = ["barack obama", "donald trump"]
 
-pages = pages3
+pages = pages1+pages2

@@ -12,15 +12,14 @@ import config.WikiPagesToAnalyse
 
 import dbOps.Postgres
 from sqls import AnalyseAnomalousTrafficOverlaps, AnalyseIndividualSpikes, AverageTrafficRatios
-from formatters import PrettyPrinter
-import logging
+from formatters import PrettyPrinter, AppLogger
 
 
 class FetchAnomalousTraffic():
     
     def __init__(self, verbose=False):
-        #print (verbose)
-        self.log = logging.getLogger(__name__)
+        self.log = AppLogger.logger.getChild(__name__)
+        self.op = AppLogger.op
         self.db = dbOps.AnomalousTraffic.dbOps(verbose)
         self.pages = config.WikiPagesToAnalyse.pages 
         
@@ -28,8 +27,6 @@ class FetchAnomalousTraffic():
     def default_exec(self, resetFlag=False):
         rslt = self.fetch(self.pages)
         self.write(rslt, resetFlag)
-        #self.read()
-
         self.db.closeDBConnections()
         
         
@@ -42,9 +39,8 @@ class FetchAnomalousTraffic():
             try :
                 res[wikipg] = ad.get(wikipg)
             except Exception as e:
-                print (e)
-                self.log.error(e)
-            
+                #self.log.error(e)
+                continue
         return res
             
         
@@ -67,6 +63,7 @@ class AnalyseAnomalousData():
     
     def __init__(self):
         self.opWidth = 150
+        self.op = AppLogger.op
         self.pp = PrettyPrinter.PrettyPrint(self.opWidth)
         self.db = dbOps.Postgres.postgres(False)
         self.pages = config.WikiPagesToAnalyse.pages 
@@ -111,18 +108,18 @@ class AnalyseAnomalousData():
         opLines = [sep0,hdr1,hdr2,sep0]
         
         for tpl in opLines :
-            self.pp.cat([tpl])
+            self.op.info(self.pp.cat([tpl]))
             
         for pglst in sorted(resDict.keys(), key= lambda k :len(k), reverse=True) :
-            print ()
+            self.op.info("")
             offset = int(self.opWidth/(len(pglst)+1))
-            self.pp.cat(["SPIKE RATIOS"],offset)
+            self.op.info(self.pp.cat(["SPIKE RATIOS"],offset))
             
-            self.pp.cat([sep1])
-            
+            self.op.info(self.pp.cat([sep1]))
+                         
             hdrTpl = ["Date"] + list(pglst)
-            self.pp.cat_tabluar(hdrTpl)
-            self.pp.cat([sep1])
+            self.op.info(self.pp.cat_tabluar(hdrTpl))
+            self.op.info(self.pp.cat([sep1]))
 
             pgLstDict = resDict[pglst]
             for dt in sorted(pgLstDict.keys()) :
@@ -130,13 +127,13 @@ class AnalyseAnomalousData():
                 
                 prnt_spRatio = list(map(str,spikeRatios))
                 prnt_row = [dt] + prnt_spRatio
-                self.pp.cat_tabluar(prnt_row)
+                self.op.info(self.pp.cat_tabluar(prnt_row))
 
                 
-            self.pp.cat([sep1])  
-            print ("\n\n") 
+            self.op.info(self.pp.cat([sep1]))  
+            self.op.info("\n\n") 
          
-        print ("\n\n\n")
+        self.op.info("\n\n\n")
             
     def printIndividualSpikes(self, resDict):
         sep0 = "="*self.opWidth
@@ -148,18 +145,18 @@ class AnalyseAnomalousData():
         opLines = [sep0,hdr1,hdr2,sep0]
         
         for tpl in opLines :
-            self.pp.cat([tpl])
+            self.op.info(self.pp.cat([tpl]))
             
         for pglst in sorted(resDict.keys(), key= lambda k : k, reverse=False) :
-            print ()
-            self.pp.cat([sep1])
-            self.pp.cat_tabluar([pglst.upper()])
+            self.op.info("")
+            self.op.info(self.pp.cat([sep1]))
+            self.op.info(self.pp.cat_tabluar([pglst.upper()]))
             
-            self.pp.cat([sep1])
+            self.op.info(self.pp.cat([sep1]))
             
             hdrTpl = ["Date" , "Spike Ratio"]
-            self.pp.cat_tabluar(hdrTpl)
-            self.pp.cat([sep1])
+            self.op.info(self.pp.cat_tabluar(hdrTpl))
+            self.op.info(self.pp.cat([sep1]))
 
             pgLstDict = resDict[pglst]
             for dt in sorted(pgLstDict.keys()) :
@@ -167,12 +164,12 @@ class AnalyseAnomalousData():
                 
                 prnt_spRatio = [str(spikeRatios)]
                 prnt_row = [dt] + prnt_spRatio
-                self.pp.cat_tabluar(prnt_row)
+                self.op.info(self.pp.cat_tabluar(prnt_row))
                 
-            self.pp.cat([sep1])   
-            print ("\n\n")
+            self.op.info(self.pp.cat([sep1]))   
+            self.op.info("\n\n")
         
-        print ("\n\n\n")
+        self.op.info("\n\n\n")
         
         
     def printTrafficRatios(self,resLst):
@@ -185,7 +182,7 @@ class AnalyseAnomalousData():
         opLines = [sep0,hdr1,hdr2,sep0]
         
         for tpl in opLines :
-            self.pp.cat([tpl])
+            self.op.info(self.pp.cat([tpl]))
          
         pg = []
         ratio = []    
@@ -194,13 +191,13 @@ class AnalyseAnomalousData():
             ratio.append(str(tpl[1]))
             
         
-        self.pp.cat([sep1])
-        self.pp.cat_tabluar(pg)
-        self.pp.cat([sep1])
-        self.pp.cat_tabluar(ratio)
-        self.pp.cat([sep1])   
+        self.op.info(self.pp.cat([sep1]))
+        self.op.info(self.pp.cat_tabluar(pg))
+        self.op.info(self.pp.cat([sep1]))
+        self.op.info(self.pp.cat_tabluar(ratio))
+        self.op.info(self.pp.cat([sep1]))   
         
-        print ("\n\n\n")
+        self.op.info("\n\n\n")
 
     def constructDict(self, res): # Pivots the result set for pageLists as the primary key
         #print (res)

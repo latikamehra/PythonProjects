@@ -2,7 +2,11 @@
 Created on Jul 24, 2019
 
 @author: latikamehra
+
 '''
+
+import logging
+from formatters import AppLogger
 
 class PrettyPrint():
     def __init__(self, opWidth):
@@ -30,7 +34,7 @@ class PrettyPrint():
             
             i += 1
         
-        print(formatted_str)
+        return(formatted_str)
         
         
     def cat_tabluar(self,rowArray, offset=0): # Print WITH column walls
@@ -57,4 +61,7 @@ class PrettyPrint():
             i += 1
         
         formatted_str += " "*(self.opWidth - end_point - divs - 1) + "|"
-        print(formatted_str)
+        return(formatted_str)
+        
+
+        

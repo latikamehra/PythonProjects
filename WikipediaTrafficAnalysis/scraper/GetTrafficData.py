@@ -8,13 +8,14 @@ from datetime import date
 import datetime
 import json
 from formatters import NormalizeKeyword
-
+from formatters import AppLogger
 import requests
 
 
 class pageview() :
     
     def __init__(self):
+        self.log = AppLogger.logger.getChild(__name__)
         self.base_url = "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/{}/daily/{}/{}"
     
         self.startDt = self.getStartEndDates(4)[0]
@@ -50,17 +51,21 @@ class pageview() :
         
     
     def getPerDayViews(self, keywrd):
-        jaslist = self.getWikiResponse(keywrd)
-        viewMap = {}
-        
-        for entry in jaslist :
-            view = entry["views"]
-            dt = entry["timestamp"]
-            frmdt = self.formatWikiDate(dt)
+        try :
+            jaslist = self.getWikiResponse(keywrd)
+            viewMap = {}
             
-            viewMap[frmdt] = view
-            
-        return viewMap
+            for entry in jaslist :
+                view = entry["views"]
+                dt = entry["timestamp"]
+                frmdt = self.formatWikiDate(dt)
+                
+                viewMap[frmdt] = view
+                
+            return viewMap
+        except Exception as e:
+            self.log.error(e)
+            raise
         
   
     def getTotalViewCount(self, keywrd):
@@ -81,7 +86,7 @@ class pageview() :
         
         self.wikiurl = self.base_url.format(keywrd,self.startDt,self.endDt)
         
-        #print (self.wikiurl)
+        self.log.debug(self.wikiurl)
         
         response = requests.get(self.wikiurl)
         jsonCont = response.content
