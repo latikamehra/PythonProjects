@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Sign In</h1>
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.usrnm.label }}<br>
+            {{ form.usrnm(size=32) }}
+            {% for error in form.usrnm.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+            
+        </p>
+        <p>
+            {{ form.pswrd.label }}<br>
+            {{ form.pswrd(size=32) }}
+            {% for error in form.pswrd.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+            
+        </p>
+        <p>{{ form.rmmbr_me() }} {{ form.rmmbr_me.label }}</p>
+        <p>{{ form.sbmt() }}</p>
+    </form>
+{% endblock %}

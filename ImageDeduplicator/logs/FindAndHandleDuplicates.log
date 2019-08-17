@@ -1,0 +1,30 @@
+[ERROR] => main.ops.FindDuplicates : 
+	1) <class 'AttributeError'> : 'NoneType' object has no attribute 'items'
+The following file does not appear to be an image file. Ignoring it for the list of consideration
+/Users/latikamehra/Pictures/Jonny1/I_am_in_a_roomagain.jpg 
+
+[ERROR] => main.ops.FindDuplicates : 
+	2) <class 'OSError'> : cannot identify image file '/Users/latikamehra/Pictures/Jonny1/.DS_Store'
+The following file does not appear to be an image file. Ignoring it for the list of consideration
+/Users/latikamehra/Pictures/Jonny1/.DS_Store 
+
+[ERROR] => main.ops.FindDuplicates : 
+	3) <class 'ValueError'> : Required Exif Parameters not found
+The following file does not seem to have the required Exif parameters. Ignoring it for the list of consideration
+/Users/latikamehra/Pictures/Jonny1/Jonny_ - 27.jpg 
+
+[ERROR] => main.ops.FindDuplicates : 
+	4) <class 'ValueError'> : Required Exif Parameters not found
+The following file does not seem to have the required Exif parameters. Ignoring it for the list of consideration
+/Users/latikamehra/Pictures/Jonny1/Jonny_ - 35.jpg 
+
+[ERROR] => main.ops.FindDuplicates : 
+	5) <class 'IsADirectoryError'> : [Errno 21] Is a directory: '/Users/latikamehra/Pictures/Jonny1/DuplicatesToReview'
+The following file does not appear to be an image file. Ignoring it for the list of consideration
+/Users/latikamehra/Pictures/Jonny1/DuplicatesToReview 
+
+[ERROR] => main.ops.FindDuplicates : 
+	6) <class 'ValueError'> : Required Exif Parameters not found
+The following file does not seem to have the required Exif parameters. Ignoring it for the list of consideration
+/Users/latikamehra/Pictures/Jonny1/Jonny_ - 29.jpg 
+

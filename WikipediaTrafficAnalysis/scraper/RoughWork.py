@@ -3,8 +3,36 @@ Created on Jul 16, 2019
 
 @author: latikamehra
 '''
+print("Enter your name:")
+x = input()
+print("Hello ", x)
 
-    
+
+'''
+x = "Jonny"
+
+try:
+  print(x)
+except:
+  print("Something went wrong")
+else:
+   print("Nothing went wrong")   
+finally:
+  print("The 'try except' is finished")
+
+'''
+'''
+def greeting(name):
+  print("Hello, " + name)
+
+person1 = {
+  "name": "John",
+  "age": 36,
+  "country": "Norway"
+}
+'''
+
+'''    
 import logging
 
 
@@ -25,3 +53,4 @@ def rough():
     
     logger.info("Testing Sub")
     
+'''

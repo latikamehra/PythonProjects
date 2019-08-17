@@ -1,0 +1,295 @@
+{
+/Users/latikamehra/Pictures/Jonny1/AcousticFrameOfMind.jpg =>   {
+								DateTimeOriginal => 2005:08:21 17:47:01,
+								MeteringMode => 5,
+								Flash => 25,
+								ColorSpace => 1,
+								Model => Canon PowerShot S70,
+								ExifImageHeight => 2304,
+								WhiteBalance => 0
+								}
+,
+/Users/latikamehra/Pictures/Jonny1/Jonny_ - 25.jpg =>   {
+							ColorSpace => 1,
+							DateTimeOriginal => 2008:08:01 00:00:00,
+							MeteringMode => 0,
+							Flash => 0,
+							ExifImageHeight => 630
+							}
+,
+/Users/latikamehra/Pictures/Jonny1/Jonny_ - 31.jpg =>   {
+							DateTimeOriginal => 2010:09:03 13:33:59,
+							MeteringMode => 5,
+							Flash => 0,
+							ColorSpace => 1,
+							Model => NIKON D3,
+							ExifImageHeight => 600,
+							WhiteBalance => 0
+							}
+,
+/Users/latikamehra/Pictures/Jonny1/Jonny_ - 19.jpg =>   {
+							ColorSpace => 1,
+							DateTimeOriginal => 2007:12:16 01:38:57,
+							ExifImageHeight => 456
+							}
+,
+/Users/latikamehra/Pictures/Jonny1/Jonny_ - 7.jpg =>    {
+							DateTimeOriginal => 2005:08:22 20:24:58,
+							MeteringMode => 2,
+							Flash => 16,
+							ColorSpace => 1,
+							Model => Canon PowerShot S70,
+							ExifImageHeight => 2304,
+							WhiteBalance => 1
+							}
+,
+/Users/latikamehra/Pictures/Jonny1/Jonny_ - 6.jpg =>    {
+							DateTimeOriginal => 2005:08:22 12:03:39,
+							MeteringMode => 5,
+							Flash => 25,
+							ColorSpace => 1,
+							Model => Canon PowerShot S70,
+							ExifImageHeight => 220,
+							WhiteBalance => 0
+							}
+,
+/Users/latikamehra/Pictures/Jonny1/Jonny_ - 18.jpg =>   {
+							DateTimeOriginal => 2007:11:21 08:25:42,
+							MeteringMode => 5,
+							Flash => 16,
+							ColorSpace => 1,
+							Model => DSC-N2,
+							ExifImageHeight => 608,
+							WhiteBalance => 0
+							}
+,
+/Users/latikamehra/Pictures/Jonny1/Jonny_ - 30.jpg =>   {
+							ExifImageHeight => 1584,
+							DateTimeOriginal => 2009:08:08 13:38:24
+							}
+,
+/Users/latikamehra/Pictures/Jonny1/Jonny_ - 24.jpg =>   {
+							ColorSpace => 1,
+							DateTimeOriginal => 2008:03:06 17:08:03,
+							ExifImageHeight => 1024
+							}
+,
+/Users/latikamehra/Pictures/Jonny1/Jonny_ - 32.jpg =>   {
+							ColorSpace => 1,
+							DateTimeOriginal => 2010:09:13 01:07:04,
+							ExifImageHeight => 1031
+							}
+,
+/Users/latikamehra/Pictures/Jonny1/Jonny_ - 26.jpg =>   {
+							DateTimeOriginal => 2008:09:10 22:14:58,
+							MeteringMode => 0,
+							Flash => 0,
+							ColorSpace => 1,
+							ExifImageHeight => 1024
+							}
+,
+/Users/latikamehra/Pictures/Jonny1/Jonny_ - 4.jpg =>    {
+							DateTimeOriginal => 2005:08:21 23:34:02,
+							MeteringMode => 2,
+							Flash => 16,
+							ColorSpace => 1,
+							Model => Canon PowerShot S70,
+							ExifImageHeight => 340,
+							WhiteBalance => 1
+							}
+,
+/Users/latikamehra/Pictures/Jonny1/Jonny_ - 5.jpg =>    {
+							DateTimeOriginal => 2005:08:22 12:03:39,
+							MeteringMode => 5,
+							Flash => 25,
+							ColorSpace => 1,
+							Model => Canon PowerShot S70,
+							ExifImageHeight => 2304,
+							WhiteBalance => 0
+							}
+,
+/Users/latikamehra/Pictures/Jonny1/Jonny_ - 33.jpg =>   {
+							DateTimeOriginal => 2011:11:29 22:26:03,
+							MeteringMode => 3,
+							Flash => 16,
+							ColorSpace => 1,
+							Model => Canon EOS 450D,
+							ExifImageHeight => 884,
+							WhiteBalance => 0
+							}
+,
+/Users/latikamehra/Pictures/Jonny1/Jonny_ - 37.jpg =>   {
+							DateTimeOriginal =>                    ,
+							ColorSpace => 65535,
+							ExifImageHeight => 300,
+							Model => QSS-29_31
+							}
+,
+/Users/latikamehra/Pictures/Jonny1/Jonny_ - 23.jpg =>   {
+							ColorSpace => 1,
+							DateTimeOriginal => 2008:03:06 17:08:03,
+							ExifImageHeight => 1024
+							}
+,
+/Users/latikamehra/Pictures/Jonny1/Jonny_ - 1.jpg =>    {
+							DateTimeOriginal => 2005:08:21 17:47:01,
+							MeteringMode => 5,
+							Flash => 25,
+							ColorSpace => 1,
+							Model => Canon PowerShot S70,
+							ExifImageHeight => 2304,
+							WhiteBalance => 0
+							}
+,
+/Users/latikamehra/Pictures/Jonny1/Jonny_ - 22.jpg =>   {
+							ColorSpace => 1,
+							DateTimeOriginal => 2008:02:04 13:37:18,
+							ExifImageHeight => 1023
+							}
+,
+/Users/latikamehra/Pictures/Jonny1/Jonny_ - 36.jpg =>   {
+							ColorSpace => 1,
+							DateTimeOriginal => 2014:06:08 13:22:17,
+							MeteringMode => 0,
+							Flash => 0,
+							ExifImageHeight => 395
+							}
+,
+/Users/latikamehra/Pictures/Jonny1/Jonny_ - 20.jpg =>   {
+							ColorSpace => 1,
+							DateTimeOriginal => 2008:02:03 00:00:00,
+							ExifImageHeight => 1062
+							}
+,
+/Users/latikamehra/Pictures/Jonny1/Jonny_ - 34.jpg =>   {
+							ExifImageHeight => 630,
+							DateTimeOriginal => 2013:12:23 22:52:57
+							}
+,
+/Users/latikamehra/Pictures/Jonny1/Jonny_ - 2.jpg =>    {
+							DateTimeOriginal => 2005:08:21 17:47:01,
+							MeteringMode => 5,
+							Flash => 25,
+							ColorSpace => 1,
+							Model => Canon PowerShot S70,
+							ExifImageHeight => 220,
+							WhiteBalance => 0
+							}
+,
+/Users/latikamehra/Pictures/Jonny1/Jonny_ - 3.jpg =>    {
+							DateTimeOriginal => 2005:08:21 23:34:02,
+							MeteringMode => 2,
+							Flash => 16,
+							ColorSpace => 1,
+							Model => Canon PowerShot S70,
+							ExifImageHeight => 2304,
+							WhiteBalance => 1
+							}
+,
+/Users/latikamehra/Pictures/Jonny1/Jonny_ - 21.jpg =>   {
+							ColorSpace => 1,
+							DateTimeOriginal => 2008:02:03 00:00:00,
+							ExifImageHeight => 1024
+							}
+,
+/Users/latikamehra/Pictures/Jonny1/Jonny_ - 10.jpg =>   {
+							DateTimeOriginal => 2006:02:15 17:08:19,
+							MeteringMode => 5,
+							Flash => 25,
+							ColorSpace => 1,
+							Model => DMC-LX1,
+							ExifImageHeight => 220,
+							WhiteBalance => 0
+							}
+,
+/Users/latikamehra/Pictures/Jonny1/Jonny_ - 38.jpg =>   {
+							DateTimeOriginal => 2014:12:16 06:16:30,
+							ColorSpace => 1,
+							ExifImageHeight => 300,
+							Model => QSS-29_31
+							}
+,
+/Users/latikamehra/Pictures/Jonny1/Jonny_ - 39.jpg =>   {
+							ColorSpace => 1,
+							DateTimeOriginal => 2015:10:25 00:34:39,
+							ExifImageHeight => 900
+							}
+,
+/Users/latikamehra/Pictures/Jonny1/Jonny_ - 11.jpg =>   {
+							DateTimeOriginal => 2006:02:15 17:41:27,
+							MeteringMode => 5,
+							Flash => 16,
+							ColorSpace => 1,
+							Model => DMC-LX1,
+							ExifImageHeight => 1080,
+							WhiteBalance => 0
+							}
+,
+/Users/latikamehra/Pictures/Jonny1/Jonny_ - 13.jpg =>   {
+							ColorSpace => 1,
+							DateTimeOriginal => 2006:06:09 23:36:29,
+							ExifImageHeight => 400
+							}
+,
+/Users/latikamehra/Pictures/Jonny1/Jonny_ - 12.jpg =>   {
+							DateTimeOriginal => 2006:02:15 17:41:27,
+							MeteringMode => 5,
+							Flash => 16,
+							ColorSpace => 1,
+							Model => DMC-LX1,
+							ExifImageHeight => 220,
+							WhiteBalance => 0
+							}
+,
+/Users/latikamehra/Pictures/Jonny1/Jonny_ - 16.jpg =>   {
+							ColorSpace => 1,
+							DateTimeOriginal => 2007:09:12 09:32:20,
+							ExifImageHeight => 720
+							}
+,
+/Users/latikamehra/Pictures/Jonny1/Jonny_ - 8.jpg =>    {
+							DateTimeOriginal => 2005:08:22 20:24:58,
+							MeteringMode => 2,
+							Flash => 16,
+							ColorSpace => 1,
+							Model => Canon PowerShot S70,
+							ExifImageHeight => 220,
+							WhiteBalance => 1
+							}
+,
+/Users/latikamehra/Pictures/Jonny1/Jonny_ - 9.jpg =>    {
+							DateTimeOriginal => 2006:02:15 17:08:19,
+							MeteringMode => 5,
+							Flash => 25,
+							ColorSpace => 1,
+							Model => DMC-LX1,
+							ExifImageHeight => 1080,
+							WhiteBalance => 0
+							}
+,
+/Users/latikamehra/Pictures/Jonny1/Jonny_ - 17.jpg =>   {
+							ColorSpace => 1,
+							DateTimeOriginal => 2007:10:01 08:15:03,
+							ExifImageHeight => 369
+							}
+,
+/Users/latikamehra/Pictures/Jonny1/Jonny_ - 15.jpg =>   {
+							DateTimeOriginal => 2007:09:12 09:32:20,
+							ColorSpace => 65535,
+							ExifImageHeight => 900
+							}
+,
+/Users/latikamehra/Pictures/Jonny1/Jonny_ - 14.jpg =>   {
+							ColorSpace => 1,
+							DateTimeOriginal => 2006:07:25 14:00:40,
+							ExifImageHeight => 1100
+							}
+,
+/Users/latikamehra/Pictures/Jonny1/Jonny_ - 28.jpg =>   {
+							ColorSpace => 1,
+							DateTimeOriginal => 2008:10:07 03:06:02,
+							ExifImageHeight => 1024
+							}
+
+}
+

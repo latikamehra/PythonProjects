@@ -62,9 +62,9 @@ class FetchAnomalousTraffic():
 class AnalyseAnomalousData():
     
     def __init__(self):
-        self.opWidth = 150
+        
         self.op = AppLogger.op
-        self.pp = PrettyPrinter.PrettyPrint(self.opWidth)
+        
         self.db = dbOps.Postgres.postgres(False)
         self.pages = config.WikiPagesToAnalyse.pages 
         
@@ -72,11 +72,22 @@ class AnalyseAnomalousData():
         self.an_overlaps_sql = AnalyseAnomalousTrafficOverlaps.sql
         self.an_indiv_sql = AnalyseIndividualSpikes.sql
         
+        self.opWidth = self.computeOpWidth(self.pages)
+        self.pp = PrettyPrinter.PrettyPrint(self.opWidth)
+        self.sep0 = "="*self.opWidth
+        self.sep1 = "-"*self.opWidth
+        
         self.db.connect()
         
+    def computeOpWidth(self, pages):
+        minColLen = max(map(len,pages)) # Compute length of the longest Page KeyWord
+        ln = (minColLen+3)*(len(pages)+1) # Add 3 to that required minimum column length for pipe and space, multiply by number of columns + 1 for the possible column of "Date"
         
+        opWidth = max(120,ln) # Output width should be either equal to ln computed above or atleast 150 characters long
+        return (opWidth)
+            
         
-    def default_exec(self):
+    def getAllAnalyses(self):
         self.trafficRatios()
         self.analyseOverlappingSpikes()
         self.analyseIndividualSpikes()
@@ -99,27 +110,26 @@ class AnalyseAnomalousData():
         self.printIndividualSpikes(res)
         
     def printOverlapAnalysis(self, resDict):
-        sep0 = "="*self.opWidth
-        sep1 = "-"*self.opWidth
+        
         
         hdr1 = "Overlapping Anomalous Traffic Data"
         hdr2 = "The following tables show dates and corresponding spike ratios for anomalous traffic data common to the set of following pages"
         
-        opLines = [sep0,hdr1,hdr2,sep0]
+        opLines = [self.sep0,hdr1,hdr2,self.sep0]
         
         for tpl in opLines :
             self.op.info(self.pp.cat([tpl]))
             
         for pglst in sorted(resDict.keys(), key= lambda k :len(k), reverse=True) :
             self.op.info("")
-            offset = int(self.opWidth/(len(pglst)+1))
+            offset = int(self.pp.opWidth/(len(pglst)+1))
             self.op.info(self.pp.cat(["SPIKE RATIOS"],offset))
             
-            self.op.info(self.pp.cat([sep1]))
+            self.op.info(self.pp.cat([self.sep1]))
                          
             hdrTpl = ["Date"] + list(pglst)
             self.op.info(self.pp.cat_tabluar(hdrTpl))
-            self.op.info(self.pp.cat([sep1]))
+            self.op.info(self.pp.cat([self.sep1]))
 
             pgLstDict = resDict[pglst]
             for dt in sorted(pgLstDict.keys()) :
@@ -130,33 +140,31 @@ class AnalyseAnomalousData():
                 self.op.info(self.pp.cat_tabluar(prnt_row))
 
                 
-            self.op.info(self.pp.cat([sep1]))  
+            self.op.info(self.pp.cat([self.sep1]))  
             self.op.info("\n\n") 
          
         self.op.info("\n\n\n")
             
     def printIndividualSpikes(self, resDict):
-        sep0 = "="*self.opWidth
-        sep1 = "-"*self.opWidth
         
         hdr1 = "Individual Anomalous Traffic Data"
         hdr2 = "The following tables show dates and corresponding spike ratios for anomalous traffic data exclusive to the following pages"
         
-        opLines = [sep0,hdr1,hdr2,sep0]
+        opLines = [self.sep0,hdr1,hdr2,self.sep0]
         
         for tpl in opLines :
             self.op.info(self.pp.cat([tpl]))
             
         for pglst in sorted(resDict.keys(), key= lambda k : k, reverse=False) :
             self.op.info("")
-            self.op.info(self.pp.cat([sep1]))
+            self.op.info(self.pp.cat([self.sep1]))
             self.op.info(self.pp.cat_tabluar([pglst.upper()]))
             
-            self.op.info(self.pp.cat([sep1]))
+            self.op.info(self.pp.cat([self.sep1]))
             
             hdrTpl = ["Date" , "Spike Ratio"]
             self.op.info(self.pp.cat_tabluar(hdrTpl))
-            self.op.info(self.pp.cat([sep1]))
+            self.op.info(self.pp.cat([self.sep1]))
 
             pgLstDict = resDict[pglst]
             for dt in sorted(pgLstDict.keys()) :
@@ -166,20 +174,19 @@ class AnalyseAnomalousData():
                 prnt_row = [dt] + prnt_spRatio
                 self.op.info(self.pp.cat_tabluar(prnt_row))
                 
-            self.op.info(self.pp.cat([sep1]))   
+            self.op.info(self.pp.cat([self.sep1]))   
             self.op.info("\n\n")
         
         self.op.info("\n\n\n")
         
         
     def printTrafficRatios(self,resLst):
-        sep0 = "="*self.opWidth
-        sep1 = "-"*self.opWidth
+
         
         hdr1 = "Daily Average Traffic Ratios"
         hdr2 = "The following pages have their average daily view counts in the following ratios to one another"
         
-        opLines = [sep0,hdr1,hdr2,sep0]
+        opLines = [self.sep0,hdr1,hdr2,self.sep0]
         
         for tpl in opLines :
             self.op.info(self.pp.cat([tpl]))
@@ -191,11 +198,11 @@ class AnalyseAnomalousData():
             ratio.append(str(tpl[1]))
             
         
-        self.op.info(self.pp.cat([sep1]))
+        self.op.info(self.pp.cat([self.sep1]))
         self.op.info(self.pp.cat_tabluar(pg))
-        self.op.info(self.pp.cat([sep1]))
+        self.op.info(self.pp.cat([self.sep1]))
         self.op.info(self.pp.cat_tabluar(ratio))
-        self.op.info(self.pp.cat([sep1]))   
+        self.op.info(self.pp.cat([self.sep1]))   
         
         self.op.info("\n\n\n")
 

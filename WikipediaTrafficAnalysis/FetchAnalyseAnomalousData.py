@@ -6,18 +6,21 @@ Created on Jul 26, 2019
 
 import logging
 from execs import AnomalousTraffic
-from config import WikiPagesToAnalyse
 from formatters import AppLogger
+import datetime
 
+curTime = datetime.datetime.now().strftime("%Y%m%d_%H%M")
+debugLog = "FetchAnalyseAnomalousData_"+curTime
+opFile = "AnomalousResults_"+curTime
+level = logging.INFO
 
-nm = "FetchAnalyseAnomalousData"
-AppLogger.initiate(nm, lvl=logging.INFO)
-AppLogger.prntr("AnomalousResults")
+AppLogger.initiate(debugLog, lvl=level)
+AppLogger.prntr(opFile)
 
 at = AnomalousTraffic.FetchAnomalousTraffic(verbose=False)
 at.default_exec(resetFlag=True)
 
 anls = AnomalousTraffic.AnalyseAnomalousData()
-anls.default_exec() 
+anls.trafficRatios() 
 
 
