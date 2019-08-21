@@ -14,11 +14,13 @@ class Cleanup():
         self.manage = manage
     
     
-    def moveDupesToKeepToOriginalDir(self):
+    def moveDupesToKeepToOriginalDir(self, confirmFlag = True):
         print ("Moving Primary duplicates back to the original folder ...")
-        print ("Have you reviewed the duplicate files and their copies to be kept?")
-        print ("Are you sure you want to move the files to keep back to their original location?")
-        answr = input()
+        
+        msg = "Have you reviewed the duplicate files and their copies to be kept?"
+        msg += "\nAre you sure you want to move the files to keep back to their original location?"
+        
+        answr = self.manage.manualConfirmation(confirmFlag, msg)
         
         if answr.lower() in ("y", "yes"):
             listOfFilesToKeep = os.listdir(self.manage.toKeepDir)
@@ -38,12 +40,15 @@ class Cleanup():
             
             
     
-    def removeDuplicates(self): 
+    def removeDuplicates(self, confirmFlag = True): 
         print ("Moving Secondary duplicates and review directories created to Trash ...")
-        print ("Have you reviewed the duplicate files and their copies to be kept?")
-        print ("Are you sure you want to permanently delete the secondary duplicate files?")
-        print ("This action cannot be reverted and all the files from the following location would be permanently deleted : \n"+ self.manage.dupeDir)
-        answr = input()
+        
+        msg = "Have you reviewed the duplicate files and their copies to be kept?"
+        msg += "\nAre you sure you want to permanently delete the secondary duplicate files?"
+        msg += "\nThis action cannot be reverted and all the files from the following location would be permanently deleted : \n"+ self.manage.dupeDir
+        
+        answr = self.manage.manualConfirmation(confirmFlag, msg)
+        
         
         if answr.lower() in ("y", "yes"):
             listOfFilesToDelete = os.listdir(self.manage.dupeDir)
@@ -55,3 +60,5 @@ class Cleanup():
             
         else :
             print ("Skipping deletion of duplicate files")
+            
+            

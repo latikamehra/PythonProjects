@@ -6,7 +6,10 @@ Created on Aug 20, 2019
 
 from imageanalysis import PixelData
 
-def fetch(potentialDupeListList):
+def fetch(potentialDupeListList, pixThreshold = 25):
+    if len(potentialDupeListList) < 1 : 
+        print("No potential duplicate files found in the directory.\nExiting")
+        quit()
     
     print ("Building a list of probable duplicate image files based on their pixel data comparison ...")
     
@@ -22,7 +25,7 @@ def fetch(potentialDupeListList):
                 
                 #print (file1, file2)
                 
-                eqFlag = PixelData.compare(file1, file2)
+                eqFlag = PixelData.compare(file1, file2, pixThreshold)
                 
                 #print (eqFlag)
                 

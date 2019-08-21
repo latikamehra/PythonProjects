@@ -5,44 +5,54 @@ Created on Aug 20, 2019
 '''
 
 import imageio
+import os
 from config.BasicDetails import detDict as paramDict
+from formatters import AppLogger as al
 
-threshold = 25
+debugLog = al.prntr("PixelData", os.path.dirname(os.path.abspath(__file__))+"/../debug/", "PixelDataComparison", consoleFlag=False)
 
-def comparePixel(pix1, pix2):
-    sz = pix1.size
-    #print (sz)
-    if sz == 1 : # Image is a grayscale
-        dfrnc = abs(int(pix1) - int(pix2))
-        if dfrnc > threshold : 
-            #print (pix1, pix2, dfrnc)
-            return False
-        else : return True
+def forceGrayScaleToRGB(pix):
     
-    else :
-        for i in range(sz) :
-            dfrnc = abs(int(pix1[i]) - int(pix2[i]))
-            if dfrnc > threshold :
-                #print (pix1[i], pix2[i], dfrnc)
-                return False
+    if pix.size == 1 :
+        pix = [pix]*3
         
-        return True
+    return pix
+        
+        
+
+def comparePixel(pix1, pix2, threshold):
+    pix1 = forceGrayScaleToRGB(pix1)
+    pix2 = forceGrayScaleToRGB(pix2)
+        
+    for i in range(3) :
+        dfrnc = abs(int(pix1[i]) - int(pix2[i]))
+        if dfrnc > threshold :
+            debugLog.debug (str(pix1[i])  +"\t\t"+  str(pix2[i])  +"\t\t"+ str(dfrnc))
+            return False
+        
+    return True
             
         
     
 
-def compare(img1, img2): # Assuming shapes of the two images are same
-    frmt = 'TIFF'
-    pic1 = imageio.imread(img1)
-    pic2 = imageio.imread(img2)
+def compare(img1, img2, threshold = 25): # Assuming height & width of the two images are same
+    frmt = 'JPEG'
     
-    dims = getattr(pic1, paramDict['all']['Shape'])
+    debugLog.debug(img1+"\t::\t"+img2)
     
-    for row in range(dims[0]) :
-        for col in range(dims[1]) :
-            comp = comparePixel(pic1[row, col], pic2[row, col])
+    pic1 = imageio.imread(img1, frmt)
+    pic2 = imageio.imread(img2, frmt)
+    
+    height = paramDict['imgio']['Height'](pic1)
+    width = paramDict['imgio']['Width'](pic1)
+    
+    for row in range(height) :
+        for col in range(width) :
+            pix1 = pic1[row, col]
+            pix2 = pic2[row, col]
+            comp = comparePixel(pix1, pix2 , threshold)
             if comp == False : 
-                #print ("Row : "+str(row), "Column : "+str(col))
+                debugLog.debug("Row : "+str(row) +"\t\t"+ "Column : "+str(col))
                 return False
             
     return True

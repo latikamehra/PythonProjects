@@ -8,11 +8,21 @@ import matplotlib
 import matplotlib.pyplot as plt
 import imageio
 
-
-
-
 def topfig(fig):
     pass
+
+
+def checkGrayscaleAndShow(axs, img):
+    plt.pause(0.0005)
+    pic = imageio.imread(img)
+    
+    if pic.ndim < 3 :
+        axs.imshow(pic, cmap=plt.get_cmap('gray'))
+    else:
+        axs.imshow(pic)
+       
+    plt.pause(0.0010)  
+        
 
 def disp(img1, img2):
     plt.ion()
@@ -24,14 +34,9 @@ def disp(img1, img2):
     axs[0].set_xlabel(img1, fontsize=8)
     axs[1].set_xlabel(img2, fontsize=8)
     
-    pic1 = imageio.imread(img1)
-    pic2 = imageio.imread(img2)
-    
-    plt.pause(0.0005)
-    axs[0].imshow(pic1)
-    plt.pause(0.0010) 
-    axs[1].imshow(pic2)
-    plt.pause(0.0010) 
+    checkGrayscaleAndShow(axs[0], img1)
+
+    checkGrayscaleAndShow(axs[1], img2)
     
 
     plt.show()

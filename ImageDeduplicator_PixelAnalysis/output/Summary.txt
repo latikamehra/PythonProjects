@@ -1,29 +1,17 @@
  ======================================================================================================================================================
  |                                                                   Number of Files                                                                  |
  ======================================================================================================================================================
- |          Total in the given directory           |   Image Files Found & Scanned for Duplicates    |           Potential Duplicates Found           |
+ |    Total in the given directory    | Image Files Scanned for Duplicates |     Potential Duplicates Found     |     Probable Duplicates Found       |
  ------------------------------------------------------------------------------------------------------------------------------------------------------
- |                       36                        |                       35                        |                        5                       |
+ |                482                 |                481                 |                 93                 |                 4                   |
  ======================================================================================================================================================
 
 
  ------------------------------------------------------------------------------------------------------------------------------------------------------
                                                              List of probable duplicates
  ------------------------------------------------------------------------------------------------------------------------------------------------------
- {/Users/latikamehra/Pictures/Jonny1/Jonny_ - 38.jpg => [/Users/latikamehra/Pictures/Jonny1/Jonny_ - 37.jpg],
-/Users/latikamehra/Pictures/Jonny1/Jonny_ - 35.jpg => [/Users/latikamehra/Pictures/Jonny1/Jonny_ - 36.jpg],
-/Users/latikamehra/Pictures/Jonny1/Jonny_ - 15.jpg => [/Users/latikamehra/Pictures/Jonny1/Jonny_ - 16.jpg],
-/Users/latikamehra/Pictures/Jonny1/Jonny_ - 27.jpg => [/Users/latikamehra/Pictures/Jonny1/Jonny_ - 28.jpg],
-/Users/latikamehra/Pictures/Jonny1/Jonny_ - 29 copy.jpg => [/Users/latikamehra/Pictures/Jonny1/Jonny_ - 29.jpg]}
-
-
-
- ------------------------------------------------------------------------------------------------------------------------------------------------------
-                                                             List of reviewed duplicates
- ------------------------------------------------------------------------------------------------------------------------------------------------------
- {/Users/latikamehra/Pictures/Jonny1/Jonny_ - 38.jpg => [/Users/latikamehra/Pictures/Jonny1/Jonny_ - 37.jpg],
-/Users/latikamehra/Pictures/Jonny1/Jonny_ - 35.jpg => [/Users/latikamehra/Pictures/Jonny1/Jonny_ - 36.jpg],
-/Users/latikamehra/Pictures/Jonny1/Jonny_ - 15.jpg => [/Users/latikamehra/Pictures/Jonny1/Jonny_ - 16.jpg],
-/Users/latikamehra/Pictures/Jonny1/Jonny_ - 27.jpg => [/Users/latikamehra/Pictures/Jonny1/Jonny_ - 28.jpg],
-/Users/latikamehra/Pictures/Jonny1/Jonny_ - 29 copy.jpg => [/Users/latikamehra/Pictures/Jonny1/Jonny_ - 29.jpg]}
+ {/Users/latikamehra/Pictures/Jonny1/Jonny_ - 10.jpg => [/Users/latikamehra/Pictures/Jonny1/Jonny_ - 9.jpg],
+/Users/latikamehra/Pictures/Jonny1/Jonny_ - 12.jpg => [/Users/latikamehra/Pictures/Jonny1/Jonny_ - 11.jpg],
+/Users/latikamehra/Pictures/Jonny1/Jonny_ - 7.jpg => [/Users/latikamehra/Pictures/Jonny1/Jonny_ - 8.jpg],
+/Users/latikamehra/Pictures/Jonny1/Jonny_ - 3.jpg => [/Users/latikamehra/Pictures/Jonny1/Jonny_ - 4.jpg]}
 

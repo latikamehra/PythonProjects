@@ -29,12 +29,14 @@ class Review():
         
         
         
-    def moveDuplicates(self, dupeDict):
+    def moveDuplicates(self, dupeDict, confirmFlag = True):
         print ("Moving Primary & Secondary duplicates to their review folders for final confirmation ...")
-        print ("Are you sure you want to move primary and secondary duplicate files to be their respective folders for review?")
-        print ("The Primary files will be moved to "+self.manage.toKeepDir)
-        print ("The Secondary files will be moved to "+self.manage.dupeDir)
-        answr = input()
+        
+        msg = "Are you sure you want to move primary and secondary duplicate files to be their respective folders for review?"
+        msg += "\nThe Primary files will be moved to "+self.manage.toKeepDir
+        msg += "\nThe Secondary files will be moved to "+self.manage.dupeDir
+        
+        answr = self.manage.manualConfirmation(confirmFlag, msg)
         
         if answr.lower() in ("y", "yes"):
         

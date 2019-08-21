@@ -24,6 +24,16 @@ class ManageDuplicates:
         
         for dr in (toKeepDir,dupeDir) :
             AppLogger.createReqdDirs(dr)
+            
+            
+    def manualConfirmation(self, confirmFlag, msg):
+        if confirmFlag == True :
+            print (msg)
+            answr = input()
+        else:
+            answr = "yes"
+            
+        return answr
     
 
     

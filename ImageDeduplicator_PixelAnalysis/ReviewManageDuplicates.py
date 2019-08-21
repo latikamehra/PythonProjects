@@ -13,9 +13,10 @@ from manageDuplicates import CleanupDuplicates, ManageDuplicates, DuplicatesForR
 
 class ReviewManageDuplicates():
     
-    def __init__(self, imgDir):
+    def __init__(self, imgDir, pixThreshold=25):
 
         self.imgDir = imgDir
+        self.pixThreshold = pixThreshold
         
         self.toKeepDir = self.imgDir+"/DuplicatesToKeep"
         self.secDupesDir = self.imgDir+"/DuplicatesToRemove"
@@ -38,6 +39,7 @@ class ReviewManageDuplicates():
         self.sep2 = "="*self.opWidth
         
         self.dupeDict = {}
+        self.potentialDupeListList = []
         self.reviewedDupeDict = {}
         self.numOfFilesInDir = 0
         self.imgFileList = []
@@ -53,36 +55,43 @@ class ReviewManageDuplicates():
         
         df = ImageDetailsDataFrame.construct(self.detDictDict)
         
-        potentialDupeListList = PotentialDuplicates.fetch(df)
+        self.potentialDupeListList = PotentialDuplicates.fetch(df)
         
-        probableDupeListList = ProbableDuplicates.fetch(potentialDupeListList)
+        probableDupeListList = ProbableDuplicates.fetch(self.potentialDupeListList, self.pixThreshold)
         
         self.dupeDict = PrimarySecondaryDuplicates.fetchDict(probableDupeListList)
-        
+         
         self.printInfo1()
+        
+        
         
         
     def manage(self, manualReview=True):
         
         mng = ManageDuplicates.ManageDuplicates(self.imgDir, self.toKeepDir, self.secDupesDir)
         
-        dplct = DuplicatesForReview.Review(mng)
+        if len(self.dupeDict) > 1 :
         
-        if manualReview == True :
-        
-            self.reviewedDupeDict = dplct.reviewDuplicates(self.dupeDict)
-        else :
-            self.reviewedDupeDict = self.dupeDict
+            dplct = DuplicatesForReview.Review(mng)
             
-        self.printInfo2()
-        
-        dplct.moveDuplicates(self.reviewedDupeDict)
-        
-        clnp = CleanupDuplicates.Cleanup(mng)
-        
-        clnp.moveDupesToKeepToOriginalDir()
-        
-        clnp.removeDuplicates()
+            if manualReview == True :
+                self.reviewedDupeDict = dplct.reviewDuplicates(self.dupeDict)
+            else :
+                self.reviewedDupeDict = self.dupeDict
+                
+            self.printInfo2()
+            
+            dplct.moveDuplicates(self.reviewedDupeDict, ~manualReview)
+            
+            clnp = CleanupDuplicates.Cleanup(mng)
+            
+            clnp.moveDupesToKeepToOriginalDir(~manualReview)
+            
+            clnp.removeDuplicates(~manualReview)
+            
+        else :
+            print("No probable duplicate files found in the directory.\nExiting")
+            quit()
         
         
 
@@ -92,15 +101,17 @@ class ReviewManageDuplicates():
         prntStr = ""
         numOfImageFilesScanned = len(self.imgFileList)
         cntr = 0
-        for dupeLst in self.dupeDict.values():
-            cntr += len(dupeLst)
+        for dupeLst in self.potentialDupeListList:
+            cntr += len(dupeLst) - 1
         
         headRow = ["Total in the given directory",
-                   "Image Files Found & Scanned for Duplicates",
-                   "Potential Duplicates Found"]
+                   "Image Files Scanned for Duplicates",
+                   "Potential Duplicates Found",
+                   "Probable Duplicates Found"]
         dataRow = [str(self.numOfFilesInDir),
                    str(numOfImageFilesScanned) ,
-                   str(cntr)]
+                   str(cntr), 
+                   str(len(self.dupeDict))]
         
         prntStr += self.pp.cat([self.sep2])
         prntStr += self.pp.cat_tabluar(["Number of Files"])
@@ -120,7 +131,7 @@ class ReviewManageDuplicates():
 
         self.basicDetsLog.debug(self.pp.collectionPrnt(self.detDictDict))
         
-        self.dupleListOP.debug(self.pp.collectionPrnt(self.dupeDict))
+        self.dupleListOP.debug(self.pp.collectionPrnt(self.potentialDupeListList))
         
     
     def printInfo2(self):
@@ -142,7 +153,7 @@ if __name__ == "__main__" :
 
     imgDir = "/Users/latikamehra/Pictures/Jonny1/"
     
-    rmd = ReviewManageDuplicates(imgDir)
+    rmd = ReviewManageDuplicates(imgDir, 25)
     rmd.review()
     rmd.manage()
 
