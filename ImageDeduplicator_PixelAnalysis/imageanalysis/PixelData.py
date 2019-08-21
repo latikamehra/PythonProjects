@@ -7,25 +7,23 @@ Created on Aug 20, 2019
 import imageio
 from config.BasicDetails import detDict as paramDict
 
-threshold = 20
+threshold = 25
 
 def comparePixel(pix1, pix2):
     sz = pix1.size
     #print (sz)
     if sz == 1 : # Image is a grayscale
         dfrnc = abs(int(pix1) - int(pix2))
-        #print (pix1, pix2, dfrnc)
         if dfrnc > threshold : 
-            print (pix1, pix2, dfrnc)
+            #print (pix1, pix2, dfrnc)
             return False
         else : return True
     
     else :
         for i in range(sz) :
             dfrnc = abs(int(pix1[i]) - int(pix2[i]))
-            #print (pix1[i], pix2[i], dfrnc)
             if dfrnc > threshold :
-                print (pix1[i], pix2[i], dfrnc)
+                #print (pix1[i], pix2[i], dfrnc)
                 return False
         
         return True
@@ -34,6 +32,7 @@ def comparePixel(pix1, pix2):
     
 
 def compare(img1, img2): # Assuming shapes of the two images are same
+    frmt = 'TIFF'
     pic1 = imageio.imread(img1)
     pic2 = imageio.imread(img2)
     
@@ -43,7 +42,7 @@ def compare(img1, img2): # Assuming shapes of the two images are same
         for col in range(dims[1]) :
             comp = comparePixel(pic1[row, col], pic2[row, col])
             if comp == False : 
-                print ("Row : "+row, "Column : "+col)
+                #print ("Row : "+str(row), "Column : "+str(col))
                 return False
             
     return True

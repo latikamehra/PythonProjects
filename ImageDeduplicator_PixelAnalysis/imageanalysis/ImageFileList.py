@@ -9,6 +9,7 @@ import imageio
 from formatters import AppLogger
 
 def fetch(imgdir):
+    print ("Fetching the list of all image files in the given directory ...")
     log = AppLogger.logger.getChild(__name__)
     fls = os.listdir(imgdir)
     allFiles = [imgdir + f for f in fls]
@@ -33,4 +34,4 @@ def fetch(imgdir):
             log.error(msg)
             
             
-    return imgFiles
+    return len(allFiles), imgFiles

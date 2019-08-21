@@ -8,6 +8,7 @@ import pandas as pd
 from config.BasicDetails import detDict as paramDict
 
 def construct(detDictDict):
+    print ("Constructing a DataFrame for all the image basic details fetched ...")
     cols=paramDict['all'].keys()
     
     df = pd.DataFrame(columns = cols)

@@ -8,6 +8,8 @@ from imageanalysis import PixelData
 
 def fetch(potentialDupeListList):
     
+    print ("Building a list of probable duplicate image files based on their pixel data comparison ...")
+    
     probableListList = []
     
     for dupeList in potentialDupeListList :
@@ -18,11 +20,11 @@ def fetch(potentialDupeListList):
             
             for j, file2 in enumerate(subLst):
                 
-                print (file1, file2)
+                #print (file1, file2)
                 
                 eqFlag = PixelData.compare(file1, file2)
                 
-                print (eqFlag)
+                #print (eqFlag)
                 
                 
                 

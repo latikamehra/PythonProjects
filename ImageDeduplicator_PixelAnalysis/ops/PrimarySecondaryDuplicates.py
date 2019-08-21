@@ -8,6 +8,7 @@ import os
 from PIL.PcfFontFile import sz
 
 def fetchDict(dupeListList):
+    print ("Finding Primary and Secondary Duplicates from the list of probable ones ...")
     
     dupeDict = {}
     

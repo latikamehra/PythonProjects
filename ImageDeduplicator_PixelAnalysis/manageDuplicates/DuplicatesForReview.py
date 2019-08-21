@@ -4,13 +4,33 @@ Created on Aug 20, 2019
 @author: latikamehra
 '''
 import os
+from manageDuplicates import DisplayDuplicates as dd
+
 
 class Review():
     
     def __init__(self, manage):
         self.manage = manage
         
-    def moveAndReviewDuplicates(self, dupeDict):
+        
+    def reviewDuplicates(self, dupeDict):
+        print ("Starting manual review of duplicates for confirmation ...")
+        reviewedDict = {}
+        
+        for i, (prim, dupes) in enumerate(dupeDict.items()): 
+            for dupe in dupes :
+                answr = dd.disp(prim, dupe)
+
+                if answr.lower() in ("y", "yes"):
+                    reviewedDict.setdefault(prim, [])
+                    reviewedDict[prim].append(dupe)
+                
+        return reviewedDict
+        
+        
+        
+    def moveDuplicates(self, dupeDict):
+        print ("Moving Primary & Secondary duplicates to their review folders for final confirmation ...")
         print ("Are you sure you want to move primary and secondary duplicate files to be their respective folders for review?")
         print ("The Primary files will be moved to "+self.manage.toKeepDir)
         print ("The Secondary files will be moved to "+self.manage.dupeDir)
@@ -19,6 +39,7 @@ class Review():
         if answr.lower() in ("y", "yes"):
         
             for i, (prim, dupes) in enumerate(dupeDict.items()):
+                
                 primBaseName = os.path.basename(prim)
                 dummyPrimeName = "PrimeCopy_"+str(i)+".jpg"
                 oldLoc = prim 

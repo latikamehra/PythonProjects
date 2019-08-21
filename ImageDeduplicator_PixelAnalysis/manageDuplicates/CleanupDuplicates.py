@@ -6,7 +6,7 @@ Created on Aug 20, 2019
 
 
 import os
-import send2trash
+from send2trash import send2trash
 
 class Cleanup():
     
@@ -15,6 +15,7 @@ class Cleanup():
     
     
     def moveDupesToKeepToOriginalDir(self):
+        print ("Moving Primary duplicates back to the original folder ...")
         print ("Have you reviewed the duplicate files and their copies to be kept?")
         print ("Are you sure you want to move the files to keep back to their original location?")
         answr = input()
@@ -38,6 +39,7 @@ class Cleanup():
             
     
     def removeDuplicates(self): 
+        print ("Moving Secondary duplicates and review directories created to Trash ...")
         print ("Have you reviewed the duplicate files and their copies to be kept?")
         print ("Are you sure you want to permanently delete the secondary duplicate files?")
         print ("This action cannot be reverted and all the files from the following location would be permanently deleted : \n"+ self.manage.dupeDir)

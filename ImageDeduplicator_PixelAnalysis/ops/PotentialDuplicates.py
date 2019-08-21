@@ -8,6 +8,7 @@ import pandas as pd
 from config.BasicDetails import detDict as paramDict
 
 def fetch(df):
+    print ("Constructing a list of all potential duplicate image files based on their basic details ...")
     
     colsForGrpBy = list(paramDict['fetch'].keys())
 
