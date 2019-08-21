@@ -6,7 +6,6 @@ Created on Aug 16, 2019
 from formatters import AppLogger
 import os 
 from send2trash import send2trash
-from os.path import curdir
 
 class MoveAndReview:
     
@@ -14,8 +13,9 @@ class MoveAndReview:
         curDir = os.path.dirname(os.path.abspath(__file__))
         self.log = AppLogger.logger.getChild(__name__)
         
-        self.origDummyFileNameMapFileBackup = curDir+"/../configs/OriginalAndDummyFileNameMapsBackup.txt"
-        self.bckupFile = open(self.origDummyFileNameMapFileBackup, 'w')
+        self.bckdir = curDir+"/../configs/"
+        self.filemapFilename = "OriginalAndDummyFileNameMapsBackup.txt"
+        self.bckupFile = AppLogger.prntr("FilenameMaps", self.bckdir, self.filemapFilename, consoleFlag=False)
         self.origDir = origDir
         self.toKeepDir = toKeepDir
         self.dupeDir = dupeDir
@@ -54,7 +54,7 @@ class MoveAndReview:
                     
                     os.rename(oldLoc, newLoc)
                     
-        self.bckupFile.write(str(self.origAndDummyNameDict))
+        self.bckupFile.info(str(self.origAndDummyNameDict))
         
       
                 
@@ -69,7 +69,10 @@ class MoveAndReview:
             
             for fn in listOfFilesToKeep:
                 oldLoc = self.toKeepDir + "/" + fn
-                newLoc = self.origDir + "/" + self.origAndDummyNameDict[fn]
+                if fn == ".DS_Store" : newLoc = self.origDir + "/" + fn
+                
+                else: newLoc = self.origDir + "/" + self.origAndDummyNameDict[fn]
+                
                 os.rename(oldLoc, newLoc)
              
             send2trash(self.toKeepDir)   

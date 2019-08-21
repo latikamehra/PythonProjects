@@ -62,7 +62,7 @@ class PrettyPrint():
         return(formatted_str+"\n")
     
     
-    def collectionPrnt(self, cllctn, tabCnt=0, initialOffset=0):
+    def collectionPrnt(self, cllctn, sepSpace=0):
         self.rcrsnLvl += 1
         #print ("Recursion Level = "+str(self.rcrsnLvl))
         
@@ -73,8 +73,8 @@ class PrettyPrint():
             brack = ("[", "]")
             sep = " , "
         elif type(cllctn) == dict : 
-            brack = (" "*initialOffset+"{\n"+ "\t"*tabCnt, "\n"+"\t"*tabCnt+"}")
-            sep = ",\n" + "\t"*tabCnt
+            brack = ("{", "}")
+            sep = ",\n" + " "*sepSpace
         else : 
             brack = ("", "")
             sep = " , "
@@ -84,9 +84,8 @@ class PrettyPrint():
         if type(cllctn) == dict: 
             for key, val in cllctn.items() :
                 keyStr = str(key)+ " => "
-                reqdTabs = tabCnt + len(keyStr)//8 + 1
-                initOffst = (8 - len(keyStr)%8)
-                keyStr += self.collectionPrnt(val, tabCnt=reqdTabs, initialOffset=initOffst)
+                reqdSpace = sepSpace + len(keyStr) + 1
+                keyStr += self.collectionPrnt(val, sepSpace=reqdSpace)
                 formatted_str.append(keyStr)
          
         elif type(cllctn) in (list, set, tuple) :
@@ -99,7 +98,7 @@ class PrettyPrint():
         finStr = brack[0] +  sep.join(formatted_str) + brack[1] 
         
         #print (finStr)
-        return (finStr+"\n")
+        return (finStr)
             
 
         

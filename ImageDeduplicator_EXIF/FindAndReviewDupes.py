@@ -7,15 +7,12 @@ import os
 
 imgDir = "/Users/latikamehra/Pictures/Jonny1/"
 
-logDir = os.path.dirname(os.path.abspath(__file__))+"/logs/"
-
-
-AppLogger.initiate(logDir, "FindAndHandleDuplicates", consoleFlag=False)
-
-
-
 toKeepDir = imgDir+"/DuplicatesToReview/ToKeep"
 secDupesDir = imgDir+"/DuplicatesToReview/ToRemove"
+
+logDir = os.path.dirname(os.path.abspath(__file__))+"/logs/"
+AppLogger.initiate(logDir, "FindAndHandleDuplicates", consoleFlag=False)
+
 
 fnd = FindDuplicates.FindDuplicates(imgDir)
 dupeDict = fnd.fetchAllDuplicates()

@@ -3,6 +3,13 @@
  ======================================================================================================================================================
  |          Total in the given directory           |   Image Files Found & Scanned for Duplicates    |           Potential Duplicates Found           |
  ------------------------------------------------------------------------------------------------------------------------------------------------------
- |                       43                        |                       37                        |                        9                       |
+ |                       36                        |                       30                        |                        3                       |
  ======================================================================================================================================================
+
+
+                                                             List of potential duplicates
+ ------------------------------------------------------------------------------------------------------------------------------------------------------
+ {/Users/latikamehra/Pictures/Jonny1/Jonny_ - 24.jpg => [/Users/latikamehra/Pictures/Jonny1/Jonny_ - 23.jpg],
+/Users/latikamehra/Pictures/Jonny1/Jonny_ - 20.jpg => [/Users/latikamehra/Pictures/Jonny1/Jonny_ - 21.jpg],
+/Users/latikamehra/Pictures/Jonny1/Jonny_ - 15.jpg => [/Users/latikamehra/Pictures/Jonny1/Jonny_ - 16.jpg]}
 

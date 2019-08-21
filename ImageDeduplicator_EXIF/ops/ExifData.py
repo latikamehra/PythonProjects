@@ -22,5 +22,5 @@ def fetch(f):
     
 
 if __name__ == "__main__":
-    f = "/Users/latikamehra/Pictures/Jonny1/Jonny_ - 29.jpg"
+    f = "/Users/latikamehra/Pictures/Jonny1/DuplicatesToReview/ToRemove/SecondaryCopy_5_0.jpg"
     fetch(f)

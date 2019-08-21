@@ -62,8 +62,14 @@ class FindDuplicates:
         prntStr += self.pp.cat_tabluar(dataRow)
         prntStr += self.pp.cat([self.sep2])
         
-        self.op_summary.info(prntStr)
+        prntStr += "\n\n"
+        prntStr += self.pp.cat([self.sep1])
+        prntStr += self.pp.cat(["List of potential duplicates"])
+        prntStr += self.pp.cat([self.sep1])
+        prntStr += self.pp.cat([self.pp.collectionPrnt(self.dupeDict)])
         
+        self.op_summary.info(prntStr)
+
         self.op_exifData.info(self.pp.collectionPrnt(self.imageMetatdataDict))
 
         

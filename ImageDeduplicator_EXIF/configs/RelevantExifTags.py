@@ -6,9 +6,10 @@ Created on Aug 15, 2019
 
 tagList = {}
 
-tagList['collect'] = ['DateTimeOriginal', 'Model', 'WhiteBalance', 'MeteringMode', 'Flash', 'ColorSpace', 'ExifImageHeight']
+tagList['collect'] = ['DateTimeOriginal', 'Model', 'WhiteBalance', 'MeteringMode', 
+                      'Flash', 'ColorSpace', 'ExifImageHeight' ,'ExifImageWidth']
 
-tagList['compare'] = ['DateTimeOriginal', 'Model', 'WhiteBalance', 'MeteringMode', 'Flash', 'ColorSpace']
+tagList['compare'] = ['DateTimeOriginal', 'Model', 'WhiteBalance', 'MeteringMode', 'Flash']
 
 tagList['required'] = ['DateTimeOriginal']
 
