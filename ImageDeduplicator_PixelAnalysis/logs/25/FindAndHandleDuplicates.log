@@ -1,0 +1,18 @@
+[ERROR] => main.imageanalysis.ImageFileList : 
+	1) <class 'ValueError'> : Could not find a format to read the specified file in mode 'i'
+The following file does not appear to be an image file. Ignoring it for the list of consideration
+/Users/latikamehra/Pictures/Jonny2/.DS_Store 
+
+[ERROR] => main.imageanalysis.ExifData : 
+	EXIF data for file /Users/latikamehra/Pictures/Jonny2/I_am_in_a_roomagain.jpg could not be fetched.
+<class 'AttributeError'> : 'NoneType' object has no attribute 'items' 
+
+[ERROR] => main.imageanalysis.ImageFileList : 
+	1) <class 'ValueError'> : Could not find a format to read the specified file in mode 'i'
+The following file does not appear to be an image file. Ignoring it for the list of consideration
+/Users/latikamehra/Pictures/Jonny2/.DS_Store 
+
+[ERROR] => main.imageanalysis.ExifData : 
+	EXIF data for file /Users/latikamehra/Pictures/Jonny2/I_am_in_a_roomagain.jpg could not be fetched.
+<class 'AttributeError'> : 'NoneType' object has no attribute 'items' 
+

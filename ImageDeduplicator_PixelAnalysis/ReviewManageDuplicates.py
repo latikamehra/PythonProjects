@@ -14,24 +14,24 @@ from manageDuplicates import CleanupDuplicates, ManageDuplicates, DuplicatesForR
 class ReviewManageDuplicates():
     
     def __init__(self, imgDir, pixThreshold=25):
-
         self.imgDir = imgDir
         self.pixThreshold = pixThreshold
-        
+        fileSuffix = str(pixThreshold)
+
         self.toKeepDir = self.imgDir+"/DuplicatesToKeep"
         self.secDupesDir = self.imgDir+"/DuplicatesToRemove"
         
         curDir = os.path.dirname(os.path.abspath(__file__))
-        debugDir = curDir+"/debug/"
-        logDir = curDir+"/logs/"
-        opDir = curDir+"/output/"
+        debugDir = curDir+"/debug/"+fileSuffix+"/"
+        logDir = curDir+"/logs/"+fileSuffix+"/"
+        opDir = curDir+"/summary/"+fileSuffix+"/"
         
         AppLogger.initiate(logDir, "FindAndHandleDuplicates", consoleFlag=False)
+        
         self.log = AppLogger.logger.getChild(__name__)
-            
-        self.basicDetsLog = AppLogger.prntr("BasicDetails", debugDir, "BasicImageDetails", consoleFlag=False)
-        self.dupleListOP = AppLogger.prntr("DupeList", opDir, "ListOfPotentialDuplicates", consoleFlag=False)
-        self.op_summary = AppLogger.prntr("Summary", opDir, "Summary", consoleFlag=True)
+        self.basicDetsLog = AppLogger.prntr("BasicDetails"+fileSuffix, debugDir, "BasicImageDetails", consoleFlag=False)
+        self.dupleListOP = AppLogger.prntr("DupeList"+fileSuffix, logDir, "ListOfPotentialDuplicates", consoleFlag=False)
+        self.op_summary = AppLogger.prntr("Summary"+fileSuffix, opDir, "Summary", consoleFlag=True)
         
         self.pp = PrettyPrinter.PrettyPrint()
         self.opWidth = 150
@@ -43,6 +43,14 @@ class ReviewManageDuplicates():
         self.reviewedDupeDict = {}
         self.numOfFilesInDir = 0
         self.imgFileList = []
+        
+        
+        prntStr = "\n\n"
+        prntStr += self.pp.cat([self.sep2])
+        prntStr += self.pp.cat(["Threshold = "+str(threshold)])
+        prntStr += self.pp.cat([self.sep2])
+        
+        self.op_summary.info(prntStr)
         
         
         
@@ -67,10 +75,8 @@ class ReviewManageDuplicates():
         
         
     def manage(self, manualReview=True):
-        
-        mng = ManageDuplicates.ManageDuplicates(self.imgDir, self.toKeepDir, self.secDupesDir)
-        
-        if len(self.dupeDict) > 1 :
+        if len(self.dupeDict) >= 1 :
+            mng = ManageDuplicates.ManageDuplicates(self.imgDir, self.toKeepDir, self.secDupesDir)
         
             dplct = DuplicatesForReview.Review(mng)
             
@@ -89,9 +95,11 @@ class ReviewManageDuplicates():
             
             clnp.removeDuplicates(~manualReview)
             
+            self.printInfo3()
+            
         else :
-            print("No probable duplicate files found in the directory.\nExiting")
-            quit()
+            print("No probable duplicate files found in the directory.\nSkipping")
+            #quit()
         
         
 
@@ -111,7 +119,7 @@ class ReviewManageDuplicates():
         dataRow = [str(self.numOfFilesInDir),
                    str(numOfImageFilesScanned) ,
                    str(cntr), 
-                   str(len(self.dupeDict))]
+                   str(self.numOfDuplicates(self.dupeDict))]
         
         prntStr += self.pp.cat([self.sep2])
         prntStr += self.pp.cat_tabluar(["Number of Files"])
@@ -143,19 +151,43 @@ class ReviewManageDuplicates():
         prntStr += self.pp.cat([self.sep1])
         prntStr += self.pp.cat([self.pp.collectionPrnt(self.reviewedDupeDict)])
         
+        
         self.op_summary.info(prntStr)
         
-    
+        
+    def printInfo3(self):
+        prntStr = ""
+        
+        prntStr += "\n\n"
+        prntStr += self.pp.cat([self.sep1])
+        prntStr += self.pp.cat(["Number of duplicates removed = "+str(self.numOfDuplicates(self.reviewedDupeDict))])
+        prntStr += self.pp.cat([self.sep1])
+        
+        self.op_summary.info(prntStr)
+        
+    def numOfDuplicates(self, dupeDict):
+        cntr = 0
+        for prim, dupeList in dupeDict.items():
+            cntr += len(dupeList)
+            
+        return cntr
 
 
 
 if __name__ == "__main__" :
 
-    imgDir = "/Users/latikamehra/Pictures/Jonny1/"
+    imgDir = "/Users/latikamehra/Pictures/Jonny2/"
+    thresholds = ['overview', 25, 50]
+    dupesRemoved = 0
     
-    rmd = ReviewManageDuplicates(imgDir, 25)
-    rmd.review()
-    rmd.manage()
+    for i, threshold in enumerate(thresholds):
+        rmd = ReviewManageDuplicates(imgDir, threshold)
+        rmd.review()
+        rmd.manage()
+        
+        dupesRemoved += rmd.numOfDuplicates(rmd.reviewedDupeDict) 
+        
+    print ("Total number of duplicates removed = "+ str(dupesRemoved))
 
 
 

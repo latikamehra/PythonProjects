@@ -8,10 +8,10 @@ from imageanalysis import PixelData
 
 def fetch(potentialDupeListList, pixThreshold = 25):
     if len(potentialDupeListList) < 1 : 
-        print("No potential duplicate files found in the directory.\nExiting")
-        quit()
-    
-    print ("Building a list of probable duplicate image files based on their pixel data comparison ...")
+        print("No potential duplicate files found in the directory.\Skipping")
+        #quit()
+    else:
+        print ("Building a list of probable duplicate image files based on their pixel data comparison ...")
     
     probableListList = []
     
@@ -23,13 +23,8 @@ def fetch(potentialDupeListList, pixThreshold = 25):
             
             for j, file2 in enumerate(subLst):
                 
-                #print (file1, file2)
-                
-                eqFlag = PixelData.compare(file1, file2, pixThreshold)
-                
-                #print (eqFlag)
-                
-                
+                pd = PixelData.PixelData(pixThreshold)
+                eqFlag = pd.compare(file1, file2)
                 
                 if eqFlag == True :
                     probableLst.append(file2)

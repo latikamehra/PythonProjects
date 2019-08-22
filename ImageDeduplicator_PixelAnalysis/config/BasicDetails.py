@@ -17,7 +17,8 @@ detDict['imgio'] = {'Height' : lambda pic : getattr(pic, 'shape')[0] ,
                     'Width' : lambda pic : getattr(pic, 'shape')[1], 
                     'Layers' : lambda pic : getattr(pic, 'shape')[2] if len(getattr(pic, 'shape')) > 2 else 1}
 
-detDict['exif'] = {'DateTimeOriginal' : lambda img : img['DateTimeOriginal'] }
+detDict['exif'] = {'DateTimeOriginal' : lambda img : img['DateTimeOriginal'],
+                   'DateTime' : lambda img : img['DateTime'] }
 
 detDict['construct'] = {'Image' : None}
 

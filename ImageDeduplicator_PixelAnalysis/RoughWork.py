@@ -7,21 +7,33 @@ print(dd.disp('/Users/latikamehra/Pictures/Jonny1/Jonny_ - 27.jpg', '/Users/lati
 print(dd.disp('/Users/latikamehra/Pictures/Jonny1/Jonny_ - 23.jpg', '/Users/latikamehra/Pictures/Jonny1/Jonny_ - 24.jpg'))
 '''
 
-from imageanalysis import PixelData, BasicImageDetails, ExifData
-from PIL import Image, ExifTags
-import imageio
+
+from imageanalysis import PixelData
 from manageDuplicates import DisplayDuplicates as dd
 
-file1 = '/Users/latikamehra/Pictures/Jonny1/Jonny_ - 9.jpg'
-file2 = '/Users/latikamehra/Pictures/Jonny1/Jonny_ - 10.jpg'
 
+file1 = '/Users/latikamehra/Pictures/Jonny2/Jonny_ - 27.jpg'
+file2 = '/Users/latikamehra/Pictures/Jonny2/Jonny_ - 28.jpg'
+
+cmp = PixelData.PixelData(threshold=50)
+
+comp = cmp.compare(file1, file2)
+print (comp)
 
 dd.disp(file1, file2)
 
+'''
+pic1 = imageio.imread(file1)
+pic2 = imageio.imread(file2)
 
-pic = imageio.imread(file1)
 
-exifData = ExifData.fetch(file1)
+for c in range(3) :
+    print(pic1[ :, :, c].mean(), pic2[ :, :, c].mean())
+
+exifData = ExifData.fetch(file2)
+
+pp = ppr.PrettyPrint()
+print(pp.collectionPrnt(exifData))
 
 print(exifData['DateTimeOriginal'])
 
@@ -29,6 +41,8 @@ flst = [file1,file2]
 
 print(BasicImageDetails.fetch(flst))
 
-comp = PixelData.compare(file1, file2, threshold=150)
+cmp = PixelData.PixelData(threshold='overview')
 
+comp = cmp.compare(file1, file2)
 print (comp)
+'''
