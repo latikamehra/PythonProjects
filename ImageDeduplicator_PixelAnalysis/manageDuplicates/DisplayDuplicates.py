@@ -4,7 +4,7 @@ Created on Aug 20, 2019
 @author: latikamehra
 '''
 
-import matplotlib
+
 import matplotlib.pyplot as plt
 import imageio
 
@@ -12,8 +12,9 @@ def topfig(fig):
     pass
 
 
-def checkGrayscaleAndShow(axs, img):
-    plt.pause(0.0015)
+def checkGrayscaleAndShow(axs, img, pauseTimeFactor=1):
+    plt.pause(0.0015*pauseTimeFactor)
+    axs.grid(False)
     pic = imageio.imread(img)
     
     axs.set_xlabel(img, fontsize=8)
@@ -23,10 +24,10 @@ def checkGrayscaleAndShow(axs, img):
     else:
         axs.imshow(pic)
        
-    plt.pause(0.0015)  
+    plt.pause(0.0010*pauseTimeFactor)  
         
 
-def disp(img1, img2):
+def disp(img1, img2, pauseTimeFactor=1):
     plt.ion()
     print ("Are the displayed files indeed duplicates?")
     
@@ -35,16 +36,16 @@ def disp(img1, img2):
     
     checkGrayscaleAndShow(axs[0], img1)
 
-    checkGrayscaleAndShow(axs[1], img2)
+    checkGrayscaleAndShow(axs[1], img2, pauseTimeFactor=pauseTimeFactor)
     
     plt.grid(b=False)
     plt.show()
     
     answr = input() 
     
-    plt.pause(0.0005)
+    plt.pause(0.0005*pauseTimeFactor)
     fig.clf()
     plt.close()
-    plt.pause(0.0005)
+    plt.pause(0.0005*pauseTimeFactor)
     
     return(answr)

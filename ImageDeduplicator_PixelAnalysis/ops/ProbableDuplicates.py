@@ -7,6 +7,7 @@ Created on Aug 20, 2019
 from imageanalysis import PixelData
 
 def fetch(potentialDupeListList, pixThreshold = 25):
+    pd = PixelData.PixelData(pixThreshold)
     if len(potentialDupeListList) < 1 : 
         print("No potential duplicate files found in the directory.\Skipping")
         #quit()
@@ -15,21 +16,25 @@ def fetch(potentialDupeListList, pixThreshold = 25):
     
     probableListList = []
     
+    #potDupeLstLst = potentialDupeListList.copy() # Make a copy of the original list so as not to change it inadvertently
+    
     for dupeList in potentialDupeListList :
         
-        for i, file1 in enumerate(dupeList):
+        dplst = dupeList.copy() # Make a copy of the original list so as not to change it inadvertently
+        
+        for i, file1 in enumerate(dplst):
             probableLst = [file1]
-            subLst = dupeList[(i+1):]
+            subLst = dplst[(i+1):]
             
             for j, file2 in enumerate(subLst):
                 
-                pd = PixelData.PixelData(pixThreshold)
+                
                 eqFlag = pd.compare(file1, file2)
                 
                 if eqFlag == True :
                     probableLst.append(file2)
                     
-                    dupeList.remove(file2)
+                    dplst.remove(file2)
                     
             
             if len(probableLst) > 1 :

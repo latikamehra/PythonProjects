@@ -7,42 +7,32 @@ print(dd.disp('/Users/latikamehra/Pictures/Jonny1/Jonny_ - 27.jpg', '/Users/lati
 print(dd.disp('/Users/latikamehra/Pictures/Jonny1/Jonny_ - 23.jpg', '/Users/latikamehra/Pictures/Jonny1/Jonny_ - 24.jpg'))
 '''
 
+from formatters import PrettyPrinter as pps
 
-from imageanalysis import PixelData
-from manageDuplicates import DisplayDuplicates as dd
+lstlst = [['/Users/latikamehra/Pictures/Jonny2/Jonny_ - 10.jpg', '/Users/latikamehra/Pictures/Jonny2/Jonny_ - 11.jpg', '/Users/latikamehra/Pictures/Jonny2/Jonny_ - 12.jpg', '/Users/latikamehra/Pictures/Jonny2/Jonny_ - 9.jpg'], 
+['/Users/latikamehra/Pictures/Jonny2/AcousticFrameOfMind.jpg', '/Users/latikamehra/Pictures/Jonny2/Jonny_ - 7.jpg', '/Users/latikamehra/Pictures/Jonny2/Jonny_ - 1.jpg', '/Users/latikamehra/Pictures/Jonny2/Jonny_ - 2.jpg', '/Users/latikamehra/Pictures/Jonny2/Jonny_ - 8.jpg'], 
+['/Users/latikamehra/Pictures/Jonny2/Jonny_ - 6.jpg', '/Users/latikamehra/Pictures/Jonny2/Jonny_ - 5.jpg'], 
+['/Users/latikamehra/Pictures/Jonny2/Jonny_ - 4.jpg', '/Users/latikamehra/Pictures/Jonny2/Jonny_ - 3.jpg'], 
+['/Users/latikamehra/Pictures/Jonny2/Jonny_ - 16.jpg', '/Users/latikamehra/Pictures/Jonny2/Jonny_ - 15.jpg'], 
+['/Users/latikamehra/Pictures/Jonny2/Jonny_ - 24.jpg', '/Users/latikamehra/Pictures/Jonny2/Jonny_ - 23.jpg']]
 
-
-file1 = '/Users/latikamehra/Pictures/Jonny2/Jonny_ - 27.jpg'
-file2 = '/Users/latikamehra/Pictures/Jonny2/Jonny_ - 28.jpg'
-
-cmp = PixelData.PixelData(threshold=50)
-
-comp = cmp.compare(file1, file2)
-print (comp)
-
-dd.disp(file1, file2)
-
-'''
-pic1 = imageio.imread(file1)
-pic2 = imageio.imread(file2)
+def ops(mylstlst):
+    
+    for mylst in mylstlst :
+        mylst.pop()
 
 
-for c in range(3) :
-    print(pic1[ :, :, c].mean(), pic2[ :, :, c].mean())
 
-exifData = ExifData.fetch(file2)
+def opsStr(str1):
+    str1 = "LookWhatHappened"+str1
 
-pp = ppr.PrettyPrint()
-print(pp.collectionPrnt(exifData))
+ops(lstlst)
 
-print(exifData['DateTimeOriginal'])
+print (lstlst)
 
-flst = [file1,file2]
 
-print(BasicImageDetails.fetch(flst))
+mystr = "Shit"
+opsStr(mystr)
 
-cmp = PixelData.PixelData(threshold='overview')
+print(mystr)
 
-comp = cmp.compare(file1, file2)
-print (comp)
-'''

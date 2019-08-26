@@ -23,5 +23,5 @@ def fetch(df):
             fileGrp['Image'].apply(lambda f : fls.append(f))
             
             dupeListList.append(fls)
-            
+
     return dupeListList

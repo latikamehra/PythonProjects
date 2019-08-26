@@ -19,19 +19,20 @@ def fetch(imgdir):
     imgFiles = []
     
     for img in allFiles :
-        try:
-            pic = imageio.imread(img)
-            imgFiles.append(img)
-
-        except (AttributeError, OSError, IOError, ValueError) as a:
-            excpCntr += 1
-            notImgFiles.append(img)
-            
-            msg = str(excpCntr) +") "+ str(type(a)) +" : "+ str(a)
-            msg += "\nThe following file does not appear to be an image file. Ignoring it for the list of consideration\n"
-            msg += img
-            
-            log.error(msg)
+        if ".gif" not in img and ".GIF" not in img:
+            try:
+                pic = imageio.imread(img)
+                imgFiles.append(img)
+    
+            except (AttributeError, OSError, IOError, ValueError) as a:
+                excpCntr += 1
+                notImgFiles.append(img)
+                
+                msg = str(excpCntr) +") "+ str(type(a)) +" : "+ str(a)
+                msg += "\nThe following file does not appear to be an image file. Ignoring it for the list of consideration\n"
+                msg += img
+                
+                log.error(msg)
             
             
     return len(allFiles), imgFiles

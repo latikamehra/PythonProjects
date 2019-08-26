@@ -8,16 +8,16 @@ import imageio
 import os
 from config.BasicDetails import detDict as paramDict
 from formatters import AppLogger as al
-from yellowbrick.classifier import threshold
 from imageanalysis import BasicImageDetails as bid
 
 class PixelData :
     
     def __init__(self, threshold=25):
-        logDir = os.path.dirname(os.path.abspath(__file__))+"/../debug/"
-        logName = "PixelDataComparison_"+str(threshold)
+        #logDir = os.path.dirname(os.path.abspath(__file__))+"/../debug/"
+        #logName = "PixelDataComparison_"+str(threshold)
+        #self.debugLog = al.prntr(logName, logDir , logName, consoleFlag=False)
+        
         self.threshold = threshold
-        self.debugLog = al.prntr(logName, logDir , logName, consoleFlag=False)
         self.avgDiff = 20
 
         
@@ -55,16 +55,20 @@ class PixelData :
         for i in range(3) :
             dfrnc = abs(int(pix1[i]) - int(pix2[i]))
             if dfrnc > int(self.threshold) :
-                self.debugLog.debug (str(pix1[i])  +"\t\t"+  str(pix2[i])  +"\t\t"+ str(dfrnc))
+                #self.debugLog.debug (str(pix1[i])  +"\t\t"+  str(pix2[i])  +"\t\t"+ str(dfrnc))
                 return False
             
         return True
+    
      
     def compareDate(self, img1, img2):   
         fn = lambda img : bid.singFileFetch(img)['DateTimeOriginal'] or bid.singFileFetch(img)['DateTime']
         
         try :
-            if fn(img1) == fn(img2) : return True
+            dt1 = fn(img1)
+            dt2 = fn(img2)
+            #print (dt1, dt2)
+            if dt1 == dt2 : return True
             else : return False
         except :
             return False
@@ -76,6 +80,10 @@ class PixelData :
         pic1 = readImg(img1)
         pic2 = readImg(img2)
         
+        #print (pic1)
+        #print ("-"*200)
+        #print (pic2)
+        
         if pic1.ndim < 3 or pic2.ndim < 3:
             return False
         else :
@@ -83,14 +91,14 @@ class PixelData :
                 avg1 = pic1[:,:,c].mean()
                 avg2 = pic2[:,:,c].mean()
                 diff = abs(avg1 - avg2)
-                if diff > self.avgDiff : 
-                    return False
-            
+                if diff > self.avgDiff :  return False
+                
         return True
+    
         
     def deepCompare(self, img1, img2): 
         
-        self.debugLog.debug(img1+"\t::\t"+img2)
+        #self.debugLog.debug(img1+"\t::\t"+img2)
         
         pic1 = imageio.imread(img1)
         pic2 = imageio.imread(img2)
@@ -104,8 +112,10 @@ class PixelData :
                 pix2 = pic2[row, col]
                 comp = self.comparePixel(pix1, pix2)
                 if comp == False : 
-                    self.debugLog.debug("Row : "+str(row) +"\t\t"+ "Column : "+str(col)+"\n\n")
+                    #self.debugLog.debug("Row : "+str(row) +"\t\t"+ "Column : "+str(col)+"\n\n")
                     return False
         
+        #pic1.close()
+        #pic2.close()  
         return True
     

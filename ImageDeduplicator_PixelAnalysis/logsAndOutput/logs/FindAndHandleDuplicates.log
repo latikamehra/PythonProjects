@@ -1,0 +1,4 @@
+[ERROR] => main.imageanalysis.ExifData : 
+	EXIF data for file /Users/latikamehra/Pictures/Jonny2/I_am_in_a_roomagain.jpg could not be fetched.
+<class 'AttributeError'> : 'NoneType' object has no attribute 'items' 
+

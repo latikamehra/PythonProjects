@@ -23,6 +23,8 @@ def singFileFetch(imgFile):
             detDict[paramName] = paramMethod(exifData)
         except:
             detDict[paramName] = None
+            
+    #pic.close()
     
     return detDict
 
