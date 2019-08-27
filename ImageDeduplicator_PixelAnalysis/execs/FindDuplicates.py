@@ -37,11 +37,7 @@ class Find():
         
         self.potentialDupeListList = PotentialDuplicates.fetch(df)
         
-        print(self.potentialDupeListList)
-        
         probableDupeListList = ProbableDuplicates.fetch(self.potentialDupeListList, self.pixThreshold)
-        
-        print(self.potentialDupeListList)
         
         self.probDupeDict = PrimarySecondaryDuplicates.fetchDict(probableDupeListList)
          

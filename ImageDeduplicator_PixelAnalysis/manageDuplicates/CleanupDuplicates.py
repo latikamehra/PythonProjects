@@ -53,7 +53,7 @@ class Cleanup():
                     os.rename(oldLoc, newLoc)
                 
                 for j, d in enumerate(dupes):
-                    if self.flchk(prim) :
+                    if self.flchk(d) :
                         secBaseName = os.path.basename(d)
                         dummysecName = "SecondaryCopy_"+str(i)+"_"+str(j)+".jpg"
                         oldLoc = d 
@@ -111,6 +111,8 @@ class Cleanup():
             
         else :
             print ("Skipping deletion of duplicate files")
+            
+        return len(listOfFilesToDelete)
             
             
     def manualConfirmation(self, confirmFlag, msg):

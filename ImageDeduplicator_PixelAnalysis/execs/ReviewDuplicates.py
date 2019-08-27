@@ -13,6 +13,8 @@ class Review :
         self.DictBckp = obj.DictBckp
         self.RvwdBckp = obj.RvwdBckp
         
+        self.reviewedDupeDict = {}
+        
         self.pp = obj.pp
         self.sep1 = obj.sep1
         
@@ -33,24 +35,14 @@ class Review :
                 self.reviewedDupeDict = dplct.reviewDuplicates(probDict)
             else :
                 self.reviewedDupeDict = probDict
-                
-            self.printReviewInfo()
             
         else :
             print("No probable duplicate files found in the directory.\nSkipping")
             #quit()
-            
+        
+        self.printReviewInfo()    
             
     def printReviewInfo(self):
-        '''
-        prntStr = ""
-        prntStr += "\n\n"
-        prntStr += self.pp.cat([self.sep1])
-        prntStr += self.pp.cat(["List of reviewed duplicates"])
-        prntStr += self.pp.cat([self.sep1])
-        prntStr += self.pp.cat([self.pp.collectionPrnt(self.reviewedDupeDict)])
-        self.op_summary.info(prntStr)
-        '''
         self.RvwdBckp.writeDict(self.reviewedDupeDict)
         
         
