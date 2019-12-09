@@ -13,12 +13,13 @@ from execs import FindDuplicates, ReviewDuplicates, ManageDuplicates
 
 class FindReviewManageDuplicates():
     
-    def __init__(self, imgDir, pixThreshold=5, confirmLevelCount=3):
+    def __init__(self, imgDir, manualReview=True, pixThreshold=5, confirmLevelCount=3):
 
         self.imgDir = imgDir
         self.pixThreshold = pixThreshold
         self.confirmLevelCount = confirmLevelCount
         fileSuffix = "threshold_"+str(pixThreshold)
+        self.manualReview  = manualReview
 
         self.toKeepDir = self.imgDir+"/DuplicatesToKeep/"
         self.secDupesDir = self.imgDir+"/DuplicatesToRemove/"
@@ -66,11 +67,11 @@ class FindReviewManageDuplicates():
             
         if 'review' in actionList : 
             rvw = ReviewDuplicates.Review(self)
-            rvw.review(manualReview=True)
+            rvw.review(self.manualReview)
             
         if 'manage' in actionList : 
             mng = ManageDuplicates.Manage(self)
-            mng.manage(manualReview=True)
+            mng.manage(self.manualReview)
             
             
     def getDupeCount(self, dupeDict):
@@ -84,17 +85,22 @@ class FindReviewManageDuplicates():
 
 if __name__ == "__main__" :
 
-    imgDir = "/Users/latikamehra/Pictures/Jonny2/"
+    imgDir = "/Users/latikamehra/Pictures/JonnyPics/"
     thresholds = [10]
     confirmLevelCount = 3
+    manualReview = False
     dupesRemoved = 0
     rmd = [None]*len(thresholds)
     
+    
     actionList = ['manage']
+    actionList = ['find', 'review', 'manage']
+    
+    
        
     try :
         for i, threshold in enumerate(thresholds):
-            rmd[i] = FindReviewManageDuplicates(imgDir, threshold, confirmLevelCount)
+            rmd[i] = FindReviewManageDuplicates(imgDir, manualReview, threshold, confirmLevelCount)
             rmd[i].exec(actionList)
     except Exception as e:
         print (str(e))

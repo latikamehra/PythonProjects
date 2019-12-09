@@ -11,7 +11,7 @@ import os
 
 class BarGraph:
     def __init__(self,fileNamePrefix,title,x_label,y_label):
-        #plt.figure(figsize=(5,10))
+        plt.figure(figsize=(10,10))
         self.x_fontSize = 10
         self.rotation = 30
         self.title = title

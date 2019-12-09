@@ -4,10 +4,10 @@ Created on Aug 7, 2019
 @author: latikamehra
 '''
 
-
+import pandas as pd
 from dbOps import Postgres
 import logging
-from execs import LoadCSVtoPostgres
+from ops import LoadCSVtoPostgres
 from sqls import PlayCountByMonth as pcm
 from sqls import PlayCountBySong as pcs
 from sqls import PlayCountBySongAndMonth as pcsm
@@ -90,7 +90,20 @@ def fetchTopNSongs(num):
     sql = topNsongs.sql.format(tableName, str(num))
     topSong_res = pg.executeReadStatement(sql)
     
-    pprint.pprint (topSong_res)
+    #pprint.pprint (topSong_res)
+    
+    df = pd.DataFrame(topSong_res, columns=('Date', 'Song', 'PlayCount'))
+    
+    grpsByDate = df.groupby('Date')
+    
+    pcsXaxis = []
+    pcsYaxis = []
+    
+    for dt, dtGrp in grpsByDate :
+        pcsXaxis = dtGrp['Song']
+        pcsYaxis = dtGrp['PlayCount']
+        bg = BarGraph.BarGraph("TopSongsPerMonth", "Radiohead Play Count", dt, "Counts")
+        bg.plotGraph(pcsXaxis, pcsYaxis)
 
 
 fetchTopNSongs(5)

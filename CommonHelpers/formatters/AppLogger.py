@@ -11,7 +11,7 @@ import os
 #opDir = os.path.dirname(os.path.abspath(__file__))+"/../output/"
 
 
-logger = logging.getLogger("main")
+logger = logging.getLogger("execs")
 
 def createReqdDirs(mydir):
     if not os.path.exists(mydir):
