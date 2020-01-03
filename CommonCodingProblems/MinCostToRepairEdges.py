@@ -27,7 +27,6 @@ Input:
 n = 6, edges = [[1, 2], [2, 3], [4, 5], [5, 6], [1, 5], [2, 4], [3, 4]], edgesToRepair = [[1, 5, 110], [2, 4, 84], [3, 4, 79]]
 Output: 79
 '''
-from gettext import lngettext
 
 def constrCombFromBin(arr, binStr):
     newArr = []
@@ -167,16 +166,12 @@ def minCostOfRepair(nodeNum, allEdges, toRepair):
                 bestRepairSet = repSet
 
     return (bestRepairSet, maxCost)
-                
-            
-        
-        
-    
+                              
+
       
-        
 nodeNum = 6
-edges = [[1, 2], [2, 3], [4, 5], [3, 5], [1, 6], [2, 4]]
-edgesToRepair = [[1, 6, 410], [2, 4, 800]]
+edges =  [[1, 2], [2, 3], [4, 5], [5, 6], [1, 5], [2, 4], [3, 4]]
+edgesToRepair = [[1, 5, 110], [2, 4, 84], [3, 4, 79]]
 
 bestRepairSet, minCost = minCostOfRepair(nodeNum, edges, edgesToRepair)
 
