@@ -5,7 +5,9 @@ Created on Dec 6, 2019
 '''
 
 
-a = [3,4]
+a = [3,4,5]
 b = [3,4]
 
-if a == b : print("Yay")
+sub1 = a[1:2]
+
+print (sub1)

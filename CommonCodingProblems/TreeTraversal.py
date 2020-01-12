@@ -19,24 +19,26 @@ class Tree :
         self.root = root 
         
     
-    def breadthFirst(self, node, parent = None):
-        if parent == None :
-            chNodes = [node.val]
-        else:
-            chNodes = []
-            
-        chNodeDesc = []
-            
-        if node.children == [] :
-            return []
-        else:
-            for ch in node.children :
-                chNodes.append(ch.val)
-                chNodeDesc = chNodeDesc + self.breadthFirst(ch, node)
-                
-            allDesc = chNodes + chNodeDesc
+    def breadthFirstTravDct(self, node, level=0, pathMap={}):
         
-            return allDesc
+        pathMap.setdefault(level, [])
+        pathMap[level].append(node.val)
+        
+        if node.children == [] : return pathMap
+        
+        for ch in node.children :
+            pathMap = self.breadthFirstTravDct(ch, level+1, pathMap)
+        
+        return pathMap
+    
+    
+    def breadthFirstTrav(self, node):
+        pathMap = self.breadthFirstTravDct(node)
+        path = []
+        for key in sorted(pathMap.keys()):
+            path = path + pathMap[key]
+            
+        return path
 
         
         
@@ -83,7 +85,7 @@ def createInputTree():
 ipTreeRoot = createInputTree()
 
 tr = Tree(ipTreeRoot)
-nodesBFS = tr.breadthFirst(ipTreeRoot)
+nodesBFS = tr.breadthFirstTrav(ipTreeRoot)
 nodesDFS_PreOrder = tr.depthFirstPreOrder(ipTreeRoot)
 nodesDFS_PostOrder = tr.depthFirstPostOrder(ipTreeRoot)
 
